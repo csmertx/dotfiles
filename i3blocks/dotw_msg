@@ -1,0 +1,14 @@
+#!/bin/sh
+
+DOTW="$(date +%a)"
+ARRW="\ue0b3"
+CLR="#FFAF00"
+MSG="GYM"
+
+if [[ $DOTW == "Mon" || $DOTW == "Wed" || $DOTW == "Fri" ]]; then
+    echo -e "$ARRW $MSG"
+    echo
+    echo $CLR
+else
+    echo ""
+fi

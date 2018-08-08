@@ -1,0 +1,33 @@
+#!/bin/sh
+
+ARRW="\ue0b3"
+COLOR="#FFAF00"
+
+## Listen for ghemx
+PID="$(pgrep -n -u $USER ghemx)"
+
+## if no ghemx do so
+if [[ -z "$PID" ]]; then
+    echo ""
+else
+    ## tells us the age of ghemx
+    COUNT="$(ps -o etime= -p $PID | sed 's/ //g' | paste -sd ''-)"
+    TITLE="$(cat /dev/shm/ghemx_title)"
+    TIME_E="$(cat /dev/shm/ghemx_time)"
+    echo -e "$ARRW [$TITLE] $TIME_E | $COUNT"
+    echo
+    echo $COLOR
+fi
+
+if [[ -n $BLOCK_INSTANCE ]]; then
+    password=("-h" "$BLOCK_INSTANCE@localhost")
+fi
+
+## Cancel with MMB
+filter() {
+    killall ghemx
+}
+
+case $BLOCK_BUTTON in
+    2) $password | filter ;;
+esac

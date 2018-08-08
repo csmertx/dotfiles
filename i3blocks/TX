@@ -1,0 +1,4 @@
+#!/bin/sh
+
+TUP="$(ifconfig wlp3s0 | awk '/TX packets/{print substr($6,2)} /TX packets/{print substr($7,0,1)}' | paste -sd '' -)"
+echo -en "\ue064$TUP"

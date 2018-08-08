@@ -1,0 +1,31 @@
+#!/bin/bash
+
+#################################################################
+### Based on https://bbs.archlinux.org/viewtopic.php?id=37284 ###
+#################################################################
+
+TMP=/home/chris/.pacman.tmp
+RC="\033[0;31m"
+NC="\033[0m"
+
+function dblck() {
+    find /var/lib/pacman/db.lck 2> /dev/null
+}
+
+function cnet() {
+    ping -c 1 209.132.183.105 | grep "100% packet loss"
+}
+
+function dns() {
+    nslookup www.google.com | grep -E "SERVFAIL|connection timed out"
+}
+
+if [[ -n "$(dns)" || -n "$(cnet)" ]]; then
+    echo -e "${RC}pacman: Could not connect to database.${NC}"
+    exit 0
+elif [[ -n "$(dblck)" ]]; then
+    echo -e "${RC}pacman: Database is locked.${NC}" 
+    exit 0
+else
+    echo "n" | sudo pacman -Syu > $TMP
+fi

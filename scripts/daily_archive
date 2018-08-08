@@ -1,0 +1,76 @@
+#!/bin/sh
+
+### Thanks goes to Bryan Lunduke for the 7day idea
+### and Linux Command Line and Shell Scripting Bible, 3rd Edition (chapter 24)
+
+DATE="$(date +%y%m%d)"
+FILEu="${USER}_archive$DATE.tar.gz"
+FILEr="root_archive$DATE.tar.gz"
+CONFIG_FILEu="/home/chris/.scripts/daily_archive_chris.conf"
+CONFIG_FILEr="/home/chris/.scripts/daily_archive_root.conf"
+DESTINATIONu="/mnt/Storage/Documents/configs/archives/chris/$FILEu"
+directoryu="/mnt/Storage/Documents/configs/archives/chris"
+DESTINATIONr="/mnt/Storage/Documents/configs/archives/root/$FILEr"
+directoryr="/mnt/Storage/Documents/configs/archives/root"
+RC="\033[0;31m"
+NC="\033[0m"
+archive_monitor="/dev/shm/archive_monitor.sh"
+
+## Spawn a temporary timer_monitor with sh
+cat > $archive_monitor << _EOF_
+#!/bin/sh
+
+zPID="\$(pgrep -n -u $USER daily_archive)"
+
+ctr=0
+
+while [ -e /proc/\$zPID ]
+do
+    COUNT="\$(ps -o etime= -p \$zPID | sed 's/ //g' | paste -sd ''-)"
+    sleep 1
+done
+
+notify-send -u critical "Archive Complete [\$COUNT]"
+exit 0
+
+_EOF_
+
+sh $archive_monitor &
+
+
+## Update package lists for Arch & AUR
+pacman -Qdt > /home/chris/.scripts/Pacman.pak
+pacman -Qm > /home/chris/.scripts/Pacman_AUR.pak
+
+## Check for .conf with dir/file list
+if [[ -f "$CONFIG_FILEu" ]]; then
+    FILE_LISTu="$(cat $CONFIG_FILEu | sed ':a;N;$!ba;s/\n/ /g')"
+else
+    echo -en "\r${RC}$CONFIG_FILEu does not exist. Exiting${NC}"
+    exit 0
+fi
+
+# > /dev/null for leading / message
+tar -czf $DESTINATIONu $FILE_LISTu 2> /dev/null
+
+if [[ -f "$CONFIG_FILEr" ]]; then
+    FILE_LISTr="$(cat $CONFIG_FILEr | sed ':a;N;$!ba;s/\n/ /g')"
+else
+    echo -en "\r${RC}$CONFIG_FILEr does not exist. Exiting${NC}"
+    exit 0
+fi
+
+# > /dev/null for leading / message
+tar -czf $DESTINATIONr $FILE_LISTr 2> /dev/null
+
+if [[ "$(ls -l $directoryr | egrep -c '^-')" == 8 ]]; then
+    remove_eight="$(ls -rt $directoryr | head -1)"
+    rm -f $directoryr/$remove_eight
+fi
+
+if [[ "$(ls -l $directoryu | egrep -c '^-')" == 8 ]]; then
+    remove_eight="$(ls -rt $directoryu | head -1)"
+    rm -f $directoryu/$remove_eight
+fi
+
+exit 0

@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Check for Swappiness & convert all to decimal
+FREE="$(free -m | awk -v CONVFMT='%.1f' '/Mem:/{print substr($7,0)/1000}' | paste -sd '' -)"
+MEM_T=3.85
+SWAP="$(free -m | awk -v CONVFMT='%.1f' '/Swap:/{print substr($3,0)/1000}' | paste -sd '' -)"
+TOTAL="$(printf %.2f $(echo "$MEM_T-$FREE" | bc -l))"
+TOTAL_S="$(printf %.1f $(echo "$SWAP" | bc -l))"
+
+# if swappiness then echo swap
+if [[ "$TOTAL_S" == 0.0 ]]; then
+    echo -e "\ue020${TOTAL}G"
+else
+    echo -e "\ue020MEM ${TOTAL}G SWAP ${TOTAL_S}G"
+fi
+

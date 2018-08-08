@@ -1,0 +1,141 @@
+!-------------------------------------------------------------------------------
+! Xft settings
+!-------------------------------------------------------------------------------
+
+!Xft.dpi:                    96
+Xft.antialias:              false
+!Xft.rgba:                   rgb
+!Xft.hinting:                true
+!Xft.hintstyle:              hintslight
+
+!-------------------------------------------------------------------------------
+! URxvt settings
+! Colours lifted from Solarized (http://ethanschoonover.com/solarized)
+! More info at:
+! http://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/doc/rxvt.1.pod
+!-------------------------------------------------------------------------------
+
+! Dynamic-Colors
+
+!URxvt*perl-ext-common: urxvt-colors
+!URxvt*perl-lib: [directoy of urxvt-colors]
+!URxvt*keysym.F12: perl:/home/chris/urxvt-colors:
+!-------------------------------------------------------------------------------
+URxvt*title: urxvt
+
+! ^RMB
+URxvt*copyCommand:       xclip -i -selection clip-board
+URxvt*pasteCommand:      xclip -o -selection clip-board
+
+! URL Selection
+
+URxvt.depth:                32
+URxvt.geometry:             90x30
+URxvt.transparent:          false
+URxvt.fading:               0
+! URxvt.urgentOnBell:         true
+URxvt.visualBell:           true
+!URxvt.loginShell:           true
+URxvt.saveLines:            10000
+URxvt.internalBorder:       3
+URxvt.lineSpace:            0
+!urxvt*dynamicColors: on
+
+! Fonts
+
+URxvt.allow_bold:           false
+!terminesspowerline
+! URxvt*font:            xft:xos4\ terminesspowerline:pixelsize=11
+
+!scientifica/siji
+URxvt*font:           xft:scientifica:pixelsize=11
+URxvt*font:           xft:siji:pixelsize=11
+URxvt.font:           xft:scientifica:pixelsize=11
+URxvt.boldFont:       xft:scientifica:pixelsize=11
+URxvt.italicFont:     xft:scientifica:pixelsize=11
+URxvt.boldItalicFont: xft:scientifica:pixelsize=11
+
+!tewi/siji
+!URxvt*font:           xft:tewi:pixelsize=10
+!URxvt*font:           xft:siji:pixelsize=11
+!URxvt.font:           xft:tewi:pixelsize=10
+!URxvt.boldFont:       xft:tewi:pixelsize=10
+!URxvt.italicFont:     xft:tewi:pixelsize=10
+!URxvt.boldItalicFont: xft:tewi:pixelsize=10
+
+! Fix font space
+URxvt*letterSpace: 1
+
+
+! Scrollbar
+URxvt.scrollStyle:          rxvt
+URxvt.scrollBar:            false
+URxvt.keysym.Shift-Up:   command:\033]720;1\007
+URxvt.keysym.Shift-Down: command:\033]721;1\007
+URxvt*scrollTtyOutput:   false
+URxvt*scrollWithBuffer:  true
+URxvt*scrollTtyKeypress: true
+
+
+! Cursor
+URxvt.cursorBlink:          true
+!URxvt.cursorColor:          #C84F1F
+Urxvt.cursorColor: #C8921F
+URxvt.cursorUnderline:      false
+
+! Pointer
+URxvt.pointerBlank:         true
+
+!!Source http://github.com/altercation/solarized
+
+*background: [70]#000000
+!*foreground: #657b83
+*foreground: #1F98C8
+!!*fading: 40
+*fadeColor: #000000
+*cursorColor: #C8921F
+*pointerColorBackground: #C84F1F
+*pointerColorForeground: #64c2E7
+
+
+!!!! Thanks again /u/maskedbyte
+
+!! black dark/light
+*color0: #073642
+*color8: #0383a3
+
+!! red dark/light
+*color1: #dc322f
+!                               *color9: #cb4b16
+*color9: #77dd77
+
+!! green dark/light
+*color2: #F7FF75
+*color10: #586e75
+
+!! yellow dark/light
+*color3: #b58900
+*color11: #657b83
+
+!! blue dark/light
+*color4: #2793D8
+!                                   *color12: #839496
+*color12: #d33682
+
+!! magenta dark/light
+!                                   *color5: #d33682
+*color5: #77dd77
+*color13: #6c71c4
+
+!! cyan dark/light
+!! Calcurse/Mocp Status
+*color6: #506CF2
+*color14: #C8921F
+
+!! white dark/light
+*color7: #268bd2
+*color15: #C84F1F
+
+
+!! Default
+*color16: #C8921F

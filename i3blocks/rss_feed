@@ -1,0 +1,17 @@
+#!/bin/sh
+
+NEWS="$(newsboat -x reload -x print-unread | awk '{$1= ""; print $2}')"
+pid="$(pgrep -u chris newsboat)"
+
+if [[ -z $pid ]]; then
+    echo -en "\ue02d$NEWS"
+else
+    echo -en "\ue02dRSS"
+fi
+
+#if [ -z "$pid" ] ; then
+#	echo "RSS:$NEWS"
+#else
+#	echo "RSS:OPN"
+#fi
+

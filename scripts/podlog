@@ -1,0 +1,15 @@
+#!/bin/sh
+
+podcastdir="$(mocp -i | grep File: | sed 's/File://g;s/ //g' | paste -sd ''- | awk '/Podcasts/{print $0}')"
+podlog="$(tail -n 1 "/home/chris/pod_history.txt" | sed "s/.\{24\}//;s/ //g")"
+
+if [[ "$podcastdir" == "$podlog" ]]; then
+    exit 0
+fi
+
+if [[ -n "$podcastdir" ]]; then
+     echo "$podcastdir" | sed "s/^/$(date +"%a %m-%d-%y %I:%M %p - ")/" >> "/home/chris/pod_history.txt"
+     exit 0
+else
+    exit 0
+fi

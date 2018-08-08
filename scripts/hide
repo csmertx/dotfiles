@@ -1,0 +1,24 @@
+#!/bin/sh
+
+TMP="/dev/shm/hide"
+hide="xdo hide -n lemonbar"
+show="xdo show -n lemonbar"
+
+if [[ -z "$(ls $TMP)" ]]; then
+    touch $TMP
+    echo "show" > $TMP
+fi
+
+cTMP="$(cat $TMP)"
+
+if [[ "$cTMP" == "hide" ]]; then
+    xdo show -n lemonbar
+    i3-msg bar mode toggle
+    echo "show" > $TMP
+elif [[ "$cTMP" == "show" ]]; then
+    xdo hide -n lemonbar
+    i3-msg bar mode toggle
+    echo "hide" > $TMP
+else
+    notify-send -u critical "I don't see lemonbar Dave."
+fi

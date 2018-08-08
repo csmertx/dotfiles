@@ -1,0 +1,47 @@
+#!/bin/sh
+
+RC="\033[0;31m"
+NC="\033[0m"
+
+function dns() {
+    nslookup www.google.com | grep -E "SERVFAIL|connection timed out"
+}
+
+function updatep() {
+    echo 'N' | sudo pacman -Syu | tail -n +11
+}
+
+function paclock() {
+    find /var/lib/pacman/db.lck > /dev/null 2>&1
+}
+
+function noup() {
+    /usr/lib/i3blocks/pac-count | grep -Eo '[0-9]{1,2}'
+}
+
+function hostcheck() {
+    hostname
+}
+
+function datetime() {
+    date +"%a %m-%d-%y %I:%M %p"
+}
+
+if [[ -n "$(dns)" ]]; then
+    echo -e "${RC}DNS lookup or network connection failed.${NC}"
+    exit 0
+elif [[ -n "$(paclock)" ]]; then
+    echo -e "${RC}Pacman's database is locked. I blame Blinky!${NC}"
+    exit 0
+elif [[  "$(noup)" == 00 ]]; then
+    echo -e "${RC}There are no updates to fetch. Exiting${NC}"
+    exit 0
+elif [[ "$(hostcheck)" != "arch" ]]; then
+    echo -e "${RC}You were eaten by a grue.${NC}"
+    exit 0
+else
+    echo -e "${RC}Recording Data > pacman.log${NC}"
+    echo -e "=> $(datetime)\n$(updatep)\n\n" >> /home/chris/.scripts/pacman.log
+    echo -e "${RC}Done. Proceeding to update...${NC}"
+    sudo pacman -Syu && sudo /usr/lib/i3blocks/pac
+fi

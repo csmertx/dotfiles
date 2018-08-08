@@ -1,0 +1,61 @@
+#!/bin/sh
+
+BRAC() {
+    echo -en "\ue0b3"
+}
+
+BRAC2() {
+    echo -en "\ue0b1"
+}
+
+TITLE() {
+    #echo -en "\ue1a4"
+    title="$(xdotool getactivewindow getwindowname)"
+    charcount="$(echo $title | wc -m)"
+    limit=127
+    if [[ $title == "" ]]; then
+        echo -en "\ue1a4Desktop"
+    else
+        if [[ $charcount -gt $limit ]]; then
+            echo -en "\ue1a4"
+            echo $title | head -c 127
+            echo "..."
+        else
+            echo -en "\ue1a4$title"
+        fi
+    fi
+}
+
+MUSIC() {
+ncmpcpp_pid="$(pgrep -u $USER ncmpcpp)"
+if [[ -z $ncmpcpp_pid ]]; then
+    mocp_pid="$(pgrep -u $USER mocp)"
+    xdo_mocp="$(xdotool search --name MOC | tail -2)"
+    mocp_md="$(xdotool getwindowname $xdo_mocp)"
+    if [[ -z $mocp_pid ]]; then
+        echo -en "\ue05cMOC [off]\n"
+    else
+        echo -en "\ue05c$mocp_md\n"
+    fi
+else
+    ncmpcpp_np="$(mpc -h "/home/chris/.config/mpd/mpd.socket" -f "[%artist% - ][%title% ][(%album%)]" | grep "-")"
+    ncmpcpp_state="$(mpc -h "/home/chris/.config/mpd/mpd.socket" -f %artist% | perl -lne "print if $1 /#(.*)/" | awk '{print substr($1,2,6)}')"
+    mpd_time="$(mpc -h "/home/chris/.config/mpd/mpd.socket" -f %artist% | grep -E "playing|paused" | sed 's/.*  //' | sed 's/ .*$//')"
+    if [[ "$ncmpcpp_state" == "paused" ]]; then
+        state="\ue059"
+    else
+        state="\ue05c"
+    fi
+    if [[ -z $ncmpcpp_state ]]; then
+        state="\ue057"
+        echo -en "$state[NCMPCPP]\n"
+    else
+        echo -en "$state$ncmpcpp_np [$mpd_time]\n"
+    fi
+fi
+}
+
+    while true; do
+            echo "%{l}%{F#87d7ff}$(TITLE)%{F-}%{F#FFAF00} $(BRAC2)%{F-}%{r}%{F#FFAF00}$(BRAC) %{F-}%{F#87d7ff}$(MUSIC)%{F-}"
+            sleep 1
+    done

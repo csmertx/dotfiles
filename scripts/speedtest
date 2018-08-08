@@ -1,0 +1,23 @@
+#!/bin/sh
+
+function cnet() {
+    ping -c 1 209.132.183.105 | grep "100% packet loss"
+}
+
+function dns() {
+    nslookup www.google.com | grep SERVFAIL
+}
+
+if [[ -n "$(cnet)" ]]; then
+    notify-send -u critical "Speedtest: Could not establish network connection."
+    exit 0
+elif [[ -n "$(dns)" ]]; then
+    notify-send -u critical "Speedtest: DNS SERVFAIL"
+else
+    if [[ -z "$(find /dev/shm/speedtest 2> /dev/null)" ]]; then
+        touch /dev/shm/speedtest
+        speedtest-cli > /dev/shm/speedtest
+    else
+        speedtest-cli > /dev/shm/speedtest
+    fi
+fi

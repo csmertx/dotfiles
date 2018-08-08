@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec /home/chris/.scripts/lemonbar/bar2 | lemonbar -p -b -o 1.5 -f "scientifica:size=10" -f "siji:size=10" -B "#99000000"

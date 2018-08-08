@@ -1,0 +1,440 @@
+#!/bin/sh
+
+######################################################################
+# zweather is a bash weather script that parses NWS (CONUS)
+# Copyright (C) 2018 csmertx
+######################################################################
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+######################################################################
+
+#### Mouse Clicks
+## RMB refresh
+## LMB todays forcast
+## MMB alert summary
+
+#### Unicode Configured for siji font
+# https://github.com/csmertx/siji
+
+#### Check network connection
+function cnet() {
+    ping -c 1 209.132.183.105 | grep "100% packet loss"
+}
+
+function dns() {
+    nslookup www.google.com | grep SERVFAIL
+}
+
+if [[ -n "$(cnet)" ]]; then
+    echo -e "\ue199NWS?: Connection Failure"
+elif [[ -n "$(dns)" ]]; then
+    echo -e "\ue199NWS?: Connection Failure"
+fi
+
+#### Hurricane tracking? "yes" or "no"
+# hurricanes=""
+# atlantic=""
+# pacific=""
+
+#### Cold Weather? "yes" or "no"
+# cold_weather=""
+# c_atlantic=""
+# c_pacific=""
+
+#### Check for zNOAA temporary file dir
+# zNOAA_dir="/tmp/zNOAA"
+zNOAA_dir="/dev/shm/zNOAA"
+if [[ -z $(ls $zNOAA_dir 2> /dev/null) ]]; then
+    mkdir $zNOAA_dir
+fi
+
+##### Local files
+TMP_WEATHER="$zNOAA_dir/TMP_WEATHER.txt"
+# change TMP_ALERTS && TMP_ALERT for persistence
+TMP_ALERTS="$zNOAA_dir/TMP_ALERTS.txt"
+TMP_ALERT="$zNOAA_dir/weather_alert.txt"
+TMP_WEATHER2="$zNOAA_dir/TMP_WEATHER2.txt"
+TMP_MOON="$zNOAA_dir/TMP_MOON.txt"
+TMP_FORECAST="$zNOAA_dir/TMP_FORECAST.txt"
+TMP_QUALITY="/home/chris/.scripts/nws_quality.txt"
+TMP_CANES="$zNOAA_dir/TMP_CANES.txt"
+
+#### -z TMP_* then create it
+if [[ -z $(ls $TMP_WEATHER 2> /dev/null) ]]; then
+    touch "$TMP_WEATHER" 2> /dev/null
+fi
+if [[ -z $(ls $TMP_ALERTS 2> /dev/null) ]]; then
+    touch "$TMP_ALERTS" 2> /dev/null
+fi
+if [[ -z $(ls $TMP_ALERT 2> /dev/null) ]]; then
+    touch "$TMP_ALERT" 2> /dev/null
+fi
+if [[ -z $(ls $TMP_WEATHER2 2> /dev/null) ]]; then
+    touch "$TMP_WEATHER2" 2> /dev/null
+fi
+if [[ -z $(ls $TMP_MOON 2> /dev/null) ]]; then
+    touch "$TMP_MOON" 2> /dev/null
+fi
+if [[ -z $(ls $TMP_FORECAST 2> /dev/null) ]]; then
+    touch "$TMP_FORECAST"
+fi
+if [[ -z $(ls $TMP_CANES 2> /dev/null) ]]; then
+    touch "$TMP_CANES" 2> /dev/null
+fi
+
+##### Weather URLs
+## Atlantic Storm Tracking
+URL_CANE="https://www.nhc.noaa.gov/"
+URL_MOON="https://www.moongiant.com/phase.php/today?month=today"
+URL_CANE_MORE="http://rammb.cira.colostate.edu/products/tc_realtime/storm.asp?storm_identifier="
+## URL_WEATHER pick station http://w1.weather.gov/xml/current_obs/
+URL_WEATHER="http://w1.weather.gov/xml/current_obs/KGNV.xml"
+## URL_ALERTS pick count https://alerts.weather.gov/
+URL_ALERTS="https://alerts.weather.gov/cap/wwaatmget.php?x=FLC001&y=1"
+## URL_WEATHER2 search for State, City
+URL_WEATHER2="https://www.accuweather.com/en/us/gainesville-fl/32601/weather-forecast/328162"
+## URL_FORECAST (WIP) search weather.gov for State, City then grab url of Text Only Forecast
+URL_FORCAST="https://forecast.weather.gov/MapClick.php?lat=29.652&lon=-82.3228&unit=0&lg=english&FcstType=text&TextType=1"
+
+##### Record to local files
+wget -q -O- $URL_WEATHER > $TMP_WEATHER
+wget -q -O- $URL_ALERTS > $TMP_ALERTS
+wget -q -O- $URL_WEATHER2 > $TMP_WEATHER2
+wget -q -O- $URL_MOON > $TMP_MOON
+wget -q -O- $URL_FORCAST > $TMP_FORECAST
+wget -q -O- $URL_CANE > $TMP_CANES
+
+#### Parse whatever from local files
+TODAY_FORE="$(cat "$TMP_FORECAST" | perl -lne 'print $1 if /Today:(.*)/' | sed "s/[<\/>]//g;s/b//1;s/ //1;s/\(.*\)br/\1 /")"
+OVERNIGHT_FORE="$(cat "$TMP_FORECAST" | perl -lne 'print $1 if /Overnight:(.*)/' | sed "s/[<\/>]//g;s/b//1;s/ //1;s/\(.*\)br/\1 /")"
+AFTERNOON_FORE="$(cat "$TMP_FORECAST" | perl -lne 'print $1 if /This Afternoon:(.*)/' | sed "s/[<\/>]//g;s/b//1;s/ //1;s/\(.*\)br/\1 /")"
+TONIGHT_FORE="$(cat "$TMP_FORECAST" | perl -lne 'print $1 if /Tonight:(.*)/' | sed "s/[<\/>]//g;s/b//1;s/ //1;s/\(.*\)br/\1 /")"
+TONIGHT_O="$(cat "$TMP_FORECAST" | perl -lne 'print $1 if /Today:(.*)/' | sed "s/[<\/>]//g;s/b//1;s/ //1;s/\(.*\)br/\1 /")"
+CAP_EXP="$(cat "$TMP_ALERTS" | perl -lne 'print $1 if /<cap:expires>(.*)/' | sed 's|</cap:expires>||g')"
+#CAP_EXP="$(cat "$TMP_ALERTS" | awk -F\' '/<cap:expires>/{print ($0)}' | sed 's/[</>]//g;s/cap:expires//g' | paste -sd '' -)"
+NOALERT="There are no active watches, warnings or advisories"
+TEMP="$(cat "$TMP_WEATHER" | perl -lne 'print $1 if /<temp_c>(.*)/' | sed 's/<.*//')"
+TEMP2="$(cat "$TMP_WEATHER2" | perl -lne 'print $1 if /temp_f :(.*)/' | sed "s/'//g;s/,//g")"
+#TEMP2="$(cat "$TMP_WEATHER2" | awk -F\' '/temp_f :/{print ($2)""}')"
+QUALITY="$(cat "$TMP_WEATHER" | perl -lne 'print $1 if /<weather>(.*)/' | sed 's/<.*//')"
+PRESSURE="$(cat "$TMP_WEATHER" | perl -lne 'print $1 if /<pressure_in>(.*)/' | sed 's/<.*//')"
+HUMIDITY="$(cat "$TMP_WEATHER" | perl -lne 'print $1 if /<relative_humidity>(.*)/' | sed 's/<.*//')"
+#ALERTS="$(cat "$TMP_ALERTS" | perl -lne 'print $1 if /<title>Current(.*)/' | sed 's|</title>||1')"
+ALERTS="$(cat "$TMP_ALERTS" | awk -F\' '!/<title>Current/&&/<title>/{print substr($1,10)}' | sed 's/[</>]//g;s/title//g' | paste -sd '' -)"
+SUMMARY="$(cat "$TMP_ALERTS" | perl -lne 'print $1 if/<summary>(.*)/' | sed 's|</summary>||g')"
+#SUMMARY="$(cat "$TMP_ALERTS" | awk -F\' '/<summary>/{print substr($1,9)}' | sed 's/[</>]//g;s/summary//g' | paste -sd '' -)"
+CANE_NAME1="$(cat $TMP_CANES | perl -lne 'print $1 if /NHC Atlantic Wallet 1(.*)/' | sed 's/[)].*$//;s/-//g;s/[(]//' | cut -c 3-)"
+CANE_NAME2="$(cat $TMP_CANES | perl -lne 'print $1 if /NHC Atlantic Wallet 2(.*)/' | sed 's/[)].*$//;s/-//g;s/[(]//' | cut -c 3-)"
+CANE_NAME3="$(cat $TMP_CANES | perl -lne 'print $1 if /NHC Atlantic Wallet 3(.*)/' | sed 's/[)].*$//;s/-//g;s/[(]//' | cut -c 3-)"
+CANE_NAME4="$(cat $TMP_CANES | perl -lne 'print $1 if /NHC Atlantic Wallet 4(.*)/' | sed 's/[)].*$//;s/-//g;s/[(]//' | cut -c 3-)"
+LIT="Illumination:"
+MOON="$(cat "$TMP_MOON" | perl -lne 'print $1 if /Illumination:(.*)/' | sed 's/[A-Z]//g;s/[a-z]//g;s/[</>,:\]//g;s/%.*//;s/ //1')"
+QUALITY_Q="$(cat $TMP_QUALITY | grep "$QUALITY")"
+
+#### Convert whatever from local files
+CONVERTkpa=0.29529983071445
+KPA=$(echo "scale=2;$PRESSURE/$CONVERTkpa" | bc)
+KPAs="kPa"
+CELCIUS=$(( ($TEMP2 - 32) * 5 / 9 ))
+
+#### Keep record of individual NWS weather qualities
+## to keep track of new $quality variables
+if [[ -z $QUALITY_Q ]]; then
+    echo "$QUALITY" >> $TMP_QUALITY
+fi
+
+#### Phone Number or Email Address for alerts
+## e.g. 5555555555@txt.att.net
+NOTIFY=""
+
+#### Weather Quality Glyphs
+# (Unicodes can be found
+# with fontforge (END key
+# to scroll to bottom))
+FAIR="\ue234"
+OVERCAST="\ue231"
+RAIN="\ue22d"
+LIGHT_RAIN="\ue230"
+HEAVY_RAIN="\ue22d"
+THUNDERSTORM="\ue22c"
+FOG="\ue1bf"
+CLOUDY="\ue22b"
+PARTLY_CLOUDY="\ue231"
+
+#### Symbols per weather quality description
+if [[ -z $QUALITY ]]; then
+    SYM="?"
+elif [[ $QUALITY == "Mostly Cloudy" ]]; then
+    SYM="$CLOUDY"
+elif [[ $QUALITY == "Mostly Cloudy with Haze" ]]; then
+    SYM="$CLOUDY"
+elif [[ $QUALITY == "Partly Cloudy with Haze" ]]; then
+    SYM="$OVERCAST"
+elif [[ $QUALITY == "Fair" ]]; then
+    SYM="$FAIR"
+elif [[ $QUALITY == "Fair with Haze" ]]; then
+    SYM="$FAIR"
+elif [[ $QUALITY == "Fair and Breezy" ]]; then
+    SYM="$FAIR"
+elif [[ $QUALITY == "Fog" ]]; then
+    SYM="$FOG"
+elif [[ $QUALITY == "FogMist" ]]; then
+    SYM="$FOG"
+elif [[ $QUALITY == "Fog/Mist" ]]; then
+    SYM="$FOG"
+elif [[ $QUALITY == "A Few Clouds" ]]; then
+    SYM="$PARTLY_CLOUDY"
+elif [[ $QUALITY == "Partly Cloudy" ]]; then
+    SYM="$OVERCAST"
+elif [[ $QUALITY == "Party Cloudy with Haze" ]]; then
+    SYM="$OVERCAST"
+elif [[ $QUALITY == "Overcast" ]]; then
+    SYM="$OVERCAST"
+elif [[ $QUALITY == "Overcast with Haze" ]]; then
+    SYM="$OVERCAST"
+elif [[ $QUALITY == "Light Rain" ]]; then
+    SYM="$LIGHT_RAIN"
+elif [[ $QUALITY == "Light Rain FogMist" ]]; then
+    SYM="$LIGHT_RAIN"
+elif [[ $QUALITY == "Light Rain Fog/Mist" ]]; then
+    SYM="$LIGHT_RAIN"
+elif [[ $QUALITY == "Mostly Cloudy and Breezy" ]]; then
+    SYM="$CLOUDY"
+elif [[ $QUALITY == "Rain" ]]; then
+    SYM="$RAIN"
+elif [[ $QUALITY == "Rain FogMist" ]]; then
+    SYM="$RAIN"
+elif [[ $QUALITY == "Rain Fog/Mist" ]]; then
+    SYM="$RAIN"
+elif [[ $QUALITY == "Thunderstorm" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm Rain" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm Rain FogMist" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm Rain Fog/Mist" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm Light Rain" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm Light Rain Fog" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm Light Rain FogMist" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm Light Rain Fog/Mist" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm Light Rain and Breezy" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm Heavy Rain" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm Heavy Rain and Breezy" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm Heavy Rain Fog" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm Heavy Rain FogMist" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm Heavy Rain Fog/Mist" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm in Vicinity" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm in Vicinity and Breezy" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm in Vicinity Heavy Rain FogMist" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm in Vicinity Heavy Rain Fog/Mist" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm in Vicinity Rain FogMist" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm in Vicinity Rain Fog/Mist" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm in Vicinity Light Rain FogMist" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm in Vicinity Light Rain Fog/Mist" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Thunderstorm in Vicinity Light Rain" ]]; then
+    SYM="$THUNDERSTORM"
+elif [[ $QUALITY == "Heavy Rain FogMist" ]]; then
+    SYM="$HEAVY_RAIN"
+elif [[ $QUALITY == "Heavy Rain Fog/Mist" ]]; then
+    SYM="$HEAVY_RAIN"
+else
+    SYM="?"
+fi
+
+#### Atlantic Hurricanes, Tropical Storms, Tropical Depressions, etc.
+if [[ $(echo $CANE_NAME1 | grep 'Tropical' 2> /dev/null) || $(echo $CANE_NAME1 | grep 'Hurricane' 2> /dev/null) ]]; then
+    CANE_IDENT="$(echo $CANE_NAME1 | grep -o '........$'2> /dev/null)"
+    CANE_MORE2="$CANE_MORE$CANE_IDENT"
+    if [[ -n $(echo $CANE_NAME3 | grep "Hurricane" 2> /dev/null) ]]; then
+        storm3="$(echo -e "\ue1c0H:$CANE_IDENT")"
+    elif [[ -n $(echo $CANE_NAME3 | grep "Tropical Storm" 2> /dev/null) ]]; then
+        storm3="$(echo -e "\ue0a97T:$CANE_IDENT")"
+    else
+        storm3="$(echo -e "\ue0a9$CANE_IDENT")"
+    fi
+else
+    storm1=""
+fi
+if [[ $(echo $CANE_NAME2 | grep 'Tropical' 2> /dev/null) || $(echo $CANE_NAME2 | grep 'Hurricane' 2> /dev/null) ]]; then
+    CANE_IDENT="$(echo $CANE_NAME2 | grep -o '........$' 2> /dev/null)"
+    CANE_MORE2="$CANE_MORE$CANE_IDENT"
+    if [[ -n $(echo $CANE_NAME3 | grep "Hurricane" 2> /dev/null) ]]; then
+        storm3="$(echo -e "\ue1c0H:$CANE_IDENT")"
+    elif [[ -n $(echo $CANE_NAME3 | grep "Tropical Storm" 2> /dev/null) ]]; then
+        storm3="$(echo -e "\ue1c0T:$CANE_IDENT")"
+    else
+        storm3="$(echo -e "\ue0a9$CANE_IDENT")"
+    fi
+else
+    storm2=""
+fi
+if [[ $(echo $CANE_NAME3 | grep 'Tropical' 2> /dev/null) || $(echo $CANE_NAME3 | grep 'Hurricane' 2> /dev/null) ]]; then
+    CANE_IDENT="$(echo $CANE_NAME3 | grep -o '........$' 2> /dev/null)"
+    CANE_MORE2="$CANE_MORE$CANE_IDENT"
+    if [[ -n $(echo $CANE_NAME3 | grep "Hurricane" 2> /dev/null) ]]; then
+        storm3="$(echo -e "\ue1c0H:$CANE_IDENT")"
+    elif [[ -n $(echo $CANE_NAME3 | grep "Tropical Storm" 2> /dev/null) ]]; then
+        storm3="$(echo -e "\ue1c0T:$CANE_IDENT")"
+    else
+        storm3="$(echo -e "\ue0a9$CANE_IDENT")"
+    fi
+else
+    storm3=""
+fi
+if [[ $(echo $CANE_NAME4 | grep 'Tropical' 2> /dev/null) || $(echo $CANE_NAME4 | grep 'Hurricane' 2> /dev/null) ]]; then
+    CANE_IDENT="$(echo $CANE_NAME4 | grep -o '........$' 2> /dev/null)"
+    CANE_MORE2="$CANE_MORE$CANE_IDENT"
+    if [[ -n $(echo $CANE_NAME3 | grep "Hurricane" 2> /dev/null) ]]; then
+        storm3="$(echo -e "\ue1c0H:$CANE_IDENT")"
+    elif [[ -n $(echo $CANE_NAME3 | grep "Tropical Storm" 2> /dev/null) ]]; then
+        storm3="$(echo -e "\ue1c0T:$CANE_IDENT")"
+    else
+        storm3="$(echo -e "\ue0a9$CANE_IDENT")"
+    fi
+else
+    storm4=""
+fi
+
+#### notify if www.nhc.noaa.gov is down
+## or can't be reached
+function dns() {
+    nslookup www.nhc.noaa.gov | grep -E "SERVFAIL|connection timed out"
+}
+
+if [[ -n $(dns) ]]; then
+    storm1="\ue0a9NHC"
+    storm2="?"
+    storm3="?"
+    storm4="?"
+fi
+
+#### Setup for mouse events
+if [[ -n $BLOCK_INSTANCE ]]; then
+    password=("-h" "$BLOCK_INSTANCE@localhost")
+fi
+
+#### Forecast with RMB
+RMB() {
+    if [[ -z "$AFTERNOON_FORE" ]]; then
+        if [[ -z "$TODAY_FORE" ]]; then
+            if [[ -z $OVERNIGHT_FORE ]]; then
+                notify-send -u critical "[Tonight] $TONIGHT_O"
+            else
+                notify-send -u critical "[Overnight] $OVERNIGHT_FORE"
+            fi
+         else
+            notify-send -u critical "[Today] $TODAY_FORE"
+            notify-send -u critical "[Tonight] $TONIGHT_FORE"
+         fi
+
+    else
+        notify-send -u critical "[This Afternoon] $AFTERNOON_FORE"
+        notify-send -u critical "[Tonight] $TONIGHT_FORE"
+    fi
+}
+
+#### Alert summary with MMB
+MMB() {
+    notify-send -u critical "$SUMMARY"
+}
+
+#### Apply mouse events to functions
+case $BLOCK_BUTTON in
+    3) $password | RMB ;;
+    2) $password | MMB ;;
+esac
+
+#### Fix for when NWS's current humidity is null
+if [[ -z $HUMIDITY ]]; then
+    HUMIDITY="$(cat "$TMP_WEATHER2" | awk -F\' '/hd :/{print ($2)""}' | paste -sd '' -)"
+fi
+
+#### Check for alerts and changes in variables; then output whatever
+if [[ $NOALERT == $ALERTS ]]; then
+    if [[ -z $TEMP ]]; then
+        if [[ $storm1 == "" && $storm2 == "" && $storm3 == "" && $storm1 == "" ]]; then
+            echo -e "$SYM$CELCIUS°C \ue1c8$HUMIDITY% \ue0cd$KPA$KPAs \ue26d$MOON%"
+        else
+            echo -e "$SYM$CELCIUS°C \ue1c8$HUMIDITY% \ue0cd$KPA$KPAs \ue26d$MOON% $storm1$storm2$storm3$storm4"
+        fi
+    else
+        if [[ $storm1 == "" && $storm2 == "" && $storm3 == "" && $storm1 == "" ]]; then
+            echo -e "$SYM$CELCIUS°C \ue1c8$HUMIDITY% \ue0cd$KPA$KPAs \ue26d$MOON%"
+        else
+            if [[ $storm1 == "" && $storm2 == "" && $storm3 == "" && $storm1 == "" ]]; then
+                echo -e "$SYM$CELCIUS°C \ue1c8$HUMIDITY% \ue0cd$KPA$KPAs \ue26d$MOON%"
+            else
+                echo -e "$SYM$TEMP°C \ue1c8$HUMIDITY% \ue0cd$KPA$KPAs \ue26d$MOON% $storm1$storm2$storm3$storm4"
+            fi
+        fi
+    fi
+else
+    if [[ -z $TEMP ]]; then
+        CAT_ALERT="$(cat $TMP_ALERT)"
+        if [[ $CAP_EXP == $CAT_ALERT ]]; then
+            if [[ $storm1 == "" && $storm2 == "" && $storm3 == "" && $storm1 == "" ]]; then
+                echo -e "$SYM$CELCIUS°C \ue1c8$HUMIDITY% \ue0cd$KPA$KPAs \ue26d$MOON%"
+            else
+                echo -e "<span color='#FF0000'>\ue077</span>$SYM$CELCIUS°C \ue1c8$HUMIDITY% \ue0cd$KPA$KPAs \ue26d$MOON% $storm1$storm2$storm3$storm4"
+            fi
+        else
+            if [[ $storm1 == "" && $storm2 == "" && $storm3 == "" && $storm1 == "" ]]; then
+                echo -e "$SYM$CELCIUS°C \ue1c8$HUMIDITY% \ue0cd$KPA$KPAs \ue26d$MOON%"
+                echo "$SUMMARY" | mutt -s "NSWA" $NOTIFY
+                echo "$CAP_EXP" > $TMP_ALERT
+            else
+                echo -e "<span color='#FF0000'>\ue077</span>$SYM$CELCIUS°C \ue1c8$HUMIDITY% \ue0cd$KPA$KPAs \ue26d$MOON% $storm1$storm2$storm3$storm4"
+                echo "$SUMMARY" | mutt -s "NSWA" $NOTIFY
+                echo "$CAP_EXP" > $TMP_ALERT
+            fi
+        fi
+    else
+        CAT_ALERT="$(cat $TMP_ALERT)"
+        if [[ $CAP_EXP == $CAT_ALERT ]]; then
+            if [[ $storm1 == "" && $storm2 == "" && $storm3 == "" && $storm1 == "" ]]; then
+                echo -e "<span color='#FF0000'>\ue077</span>$SYM$TEMP°C \ue1c8$HUMIDITY% \ue0cd$KPA$KPAs \ue26d$MOON%"
+            else
+                echo -e "<span color='#FF0000'>\ue077</span>$SYM$TEMP°C \ue1c8$HUMIDITY% \ue0cd$KPA$KPAs \ue26d$MOON% $storm1$storm2$storm3$storm4"
+            fi
+        else
+            if [[ $storm1 == "" && $storm2 == "" && $storm3 == "" && $storm1 == "" ]]; then
+                echo -e "<span color='#FF0000'>\ue077</span>$SYM$TEMP°C \ue1c8$HUMIDITY% \ue0cd$KPA$KPAs \ue26d$MOON%"
+                echo "$SUMMARY" | mutt -s "NWSA" $NOTIFY
+                echo "$CAP_EXP" > $TMP_ALERT
+            else
+                echo -e "<span color='#FF0000'>\ue077</span>$SYM$TEMP°C \ue1c8$HUMIDITY% \ue0cd$KPA$KPAs \ue26d$MOON% $storm1$storm2$storm3$storm4"
+                echo "$SUMMARY" | mutt -s "NWSA" $NOTIFY
+                echo "$CAP_EXP" > $TMP_ALERT
+            fi
+        fi
+    fi
+fi

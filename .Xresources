@@ -1,0 +1,74 @@
+!Xft.dpi: 96
+Xft.antialias: false
+!Xft.hinting: true
+!Xft.rgba: rgb
+!Xft.autohint: false
+Xft.hintstyle: none
+!Xft.lcdfilter: lcddefault
+!Xft.embolden: true
+
+! 5 Jan 2018
+
+!Xft.dpi: 96
+!Xft.lcdfilter: lcddefault
+!Xft.antialias: true
+Xft.autohint: false
+Xft.hinting: none
+Xft.rgba: none
+
+Xft.font:           xft:scientifica:pixelsize=11
+!Xft.font:           xft:siji:pixelsize=11
+!Xft.font:           xft:scientifica:pixelsize=11
+Xft.boldFont:       xft:scientifica:pixelsize=11
+Xft.italicFont:     xft:scientifica:pixelsize=11
+Xft.boldItalicFont: xft:scientifica:pixelsize=11
+
+! 9 Jan 2018
+
+! do not scroll with output
+!URxvt*scrollTtyOutput: true
+
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+!URxvt*scrollWithBuffer: false
+
+
+! scroll back to the bottom on keypress
+!URxvt*scrollTtyKeypress: false
+URxvt.color12: #C84F1F
+
+! 10 Jan 2018
+!xterm*dynamicColors: true
+
+! Click a link
+URxvt.perl-ext-common: url-select,clipboard
+!URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.perl-lib: /usr/lib64/urxvt/perl/:/usr/lib/urxvt/perl
+URxvt.url-select.launcher: qutebrowser
+URxvt.url-select.button: 1
+URxvt.url-select.underline: true
+URxvt.colorUL: yellow
+
+! Copy Pasta
+
+
+!URxvt*copyCommand:       xclip -i -selection clip-board
+!URxvt*pasteCommand:      xclip -o -selection clip-board
+URxvt.keysym.M-c:   perl:clipboard:copy
+URxvt.keysym.M-v:   perl:clipboard:paste
+!URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+
+
+! ------------------------------------------------------------------------------
+! ROFI Color theme
+! Copyright: Rasmus Steinke
+! ------------------------------------------------------------------------------
+rofi.color-enabled: true
+rofi.color-window: #000000, #f3843d, #268bd2
+rofi.color-normal: #000000, #ffffff, #000000, #268bd2, #ffffff
+rofi.color-active: #000000, #268bd2, #000000, #268bd2, #205171
+rofi.color-urgent: #000000, #f3843d, #000000, #268bd2, #ffc39c
+
+rofi.modi: window,run,ssh
+rofi.show-icons: true
+rofi.terminal: urxvt
+rofi.sidebar-mode: true

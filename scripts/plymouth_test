@@ -1,0 +1,6 @@
+#!/bin/sh
+
+plymouthd
+plymouth --show-splash
+sleep 10
+plymouth quit

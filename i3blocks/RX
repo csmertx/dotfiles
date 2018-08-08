@@ -1,0 +1,4 @@
+#!/bin/sh
+
+TDN="$(ifconfig wlp3s0 | awk '/RX packets/{print substr($6,2)} /RX packets/{print substr($7,0,1)}' | paste -sd '' -)"
+echo -en "\ue065$TDN"

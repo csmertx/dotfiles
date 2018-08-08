@@ -1,0 +1,22 @@
+#!/bin/sh
+
+TMP="/home/chris/.pacman.tmp"
+COUNT="$(cat $TMP | awk '/Packages/{print ($2)}' | sed 's/[()]//g' | tail -1)"
+NOCOUNT="$(cat $TMP | awk '/there is nothing to do/{print ($0)}')"
+NNC="$(nslookup www.google.com | grep -E "SERVFAIL|connection timed out")"
+
+if [[ $NOCOUNT == " there is nothing to do" ]]; then
+    echo -e "\ue00F00"
+elif [[ -n $NNC ]]; then
+        echo -e "\ue00f??"
+else
+    if [[ -n $COUNT ]]; then
+        if [[ $COUNT -lt 10 ]]; then
+            echo -e "\ue00f0${COUNT}"
+        else
+            echo -e "\ue00f$COUNT"
+        fi
+     else
+        echo -e "\ue00f??"
+     fi
+fi

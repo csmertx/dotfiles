@@ -1,0 +1,8 @@
+#!/bin/sh
+
+#### Loosely a clone of Gnome's Alt+F2
+# prompt for shell command
+# and execute whenever
+
+RUN=$(zenity --width=400 --entry --title "Run Command" --text="Run")
+$SHELL -c "$RUN"

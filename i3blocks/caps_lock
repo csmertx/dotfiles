@@ -1,0 +1,9 @@
+#!/bin/bash
+
+state=$(xset -q | grep Caps | awk '{print $4}')
+
+if [ "$state" == "on" ] ; then
+	notify-send "Caps: ON" && exit 0
+
+fi
+

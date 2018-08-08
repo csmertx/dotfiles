@@ -1,0 +1,23 @@
+#set recolor-darkcolor "#8FE0DD"
+#set recolor-lightcolor "#87D7FF"
+set recolor true
+
+# colors
+set statusbar-bg "#000000"
+set statusbar-fg "#87D7FF"
+set inputbar-fg "#FFAF00"
+set completion-fg "#FFAF00"
+set default-fg "#FFFFFF"
+set default-bg "#000000"
+
+map <Tab> toggle_index
+map j scroll down
+map k scroll up
+map h navigate previous
+map l navigate next
+map [fullscreen] <Tab> toggle_index
+map [fullscreen] j scroll down
+map [fullscreen] k scroll up
+map [fullscreen] h navigate previous
+map [fullscreen] l navigate next
+map [fullscreen] f follow

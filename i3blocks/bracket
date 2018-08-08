@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo -en "\ue0b3"
+#echo "❬"
+#echo "❮"
+#echo ""
+# echo ""

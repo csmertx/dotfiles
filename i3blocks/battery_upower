@@ -1,0 +1,16 @@
+#!/bin/sh
+# depends on upower
+
+percentage="$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep percentage | sed 's/percentage://g;s/ //g;s/%//g')"
+state="$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep state | grep state | sed 's/state://g;s/ //g')"
+
+if [[ "$state" == "discharging" ]]; then
+    sym="\ue040"
+    if [[ $percentage -lt 15 ]]; then
+        notify-send -u critical "Battery @ $percentage%"
+    fi
+elif [[ "$state" == "charging" ]]; then
+    sym="\ue041"
+fi
+
+echo -e "$sym$percentage%"

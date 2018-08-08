@@ -1,0 +1,137 @@
+#!/bin/sh
+
+# Date/time
+currentdate=$(date +'%a-%b-%d (%I:%M%P)')
+
+# Download show's page from next-episode.net
+wget -q -O- "https://next-episode.net/the-big-bang-theory" > /home/chris/.scripts/tvguide/the_big_bang_theory_url.txt
+wget -q -O- "https://next-episode.net/rick-and-morty" > /home/chris/.scripts/tvguide/rick_and_morty_url.txt
+wget -q -O- "https://next-episode.net/the-expanse" > /home/chris/.scripts/tvguide/the_expanse_url.txt
+wget -q -O- "https://next-episode.net/stranger-things" > /home/chris/.scripts/tvguide/stranger_things_url.txt
+wget -q -O- "https://next-episode.net/silicon-valley" > /home/chris/.scripts/tvguide/silicon_valley_url.txt
+wget -q -O- "https://next-episode.net/game-of-thrones" > /home/chris/.scripts/tvguide/game_of_thrones_url.txt
+wget -q -O- "https://next-episode.net/ancient-aliens" > /home/chris/.scripts/tvguide/ancient_aliens_url.txt
+wget -q -O- "https://next-episode.net/z-nation" > /home/chris/.scripts/tvguide/z_nation_url.txt
+wget -q -O- "https://next-episode.net/mystery-science-theater-3000" > /home/chris/.scripts/tvguide/mst3k_url.txt
+wget -q -O- "https://next-episode.net/killjoys" > /home/chris/.scripts/tvguide/killjoys_url.txt
+
+# Parse info from *_url.txt for days/hours or hours/minutes
+thebigbangtheory="$(cat /home/chris/.scripts/tvguide/the_big_bang_theory_url.txt | awk '/Countdown/{print substr($0,177)}' | sed 's/[</>]//g;s/hourspan/hour/g;s/dayspan/day/g;s/hoursspan/hours/g;s/daysspan/days/g;s/hoursspan/hours/g;s/minspan/min/g;s/minsspan/mins/g;s/,//g;s/weekspan/week/g;s/weeksspan/weeks/g;s/monthspan/month/g;s/monthsspan/months/g' | paste -sd ''-)"
+rickandmorty="$(cat /home/chris/.scripts/tvguide/rick_and_morty_url.txt | awk '/Countdown/{print substr($0,177)}' | sed 's/[</>]//g;s/hourspan/hour/g;s/dayspan/day/g;s/hoursspan/hours/g;s/daysspan/days/g;s/hoursspan/hours/g;s/minspan/min/g;s/minsspan/mins/g;s/,//g;s/weekspan/week/g;s/weeksspan/weeks/g;s/monthspan/month/g;s/monthsspan/months/g' | paste -sd ''-)"
+theexpanse="$(cat /home/chris/.scripts/tvguide/the_expanse_url.txt | awk '/Countdown/{print substr($0,177)}' | sed 's/[</>]//g;s/hourspan/hour/g;s/dayspan/day/g;s/hoursspan/hours/g;s/daysspan/days/g;s/hoursspan/hours/g;s/minspan/min/g;s/minsspan/mins/g;s/,//g;s/weekspan/week/g;s/weeksspan/weeks/g;s/monthspan/month/g;s/monthsspan/months/g' | paste -sd ''-)"
+strangerthings="$(cat /home/chris/.scripts/tvguide/stranger_things_url.txt | awk '/Countdown/{print substr($0,177)}' | sed 's/[</>]//g;s/hourspan/hour/g;s/dayspan/day/g;s/hoursspan/hours/g;s/daysspan/days/g;s/hoursspan/hours/g;s/minspan/min/g;s/minsspan/mins/g;s/,//g;s/weekspan/week/g;s/weeksspan/weeks/g;s/monthspan/month/g;s/monthsspan/months/g' | paste -sd ''-)"
+siliconvalley="$(cat /home/chris/.scripts/tvguide/silicon_valley_url.txt | awk '/Countdown/{print substr($0,177)}' | sed 's/[</>]//g;s/hourspan/hour/g;s/dayspan/day/g;s/hoursspan/hours/g;s/daysspan/days/g;s/hoursspan/hours/g;s/minspan/min/g;s/minsspan/mins/g;s/,//g;s/weekspan/week/g;s/weeksspan/weeks/g;s/monthspan/month/g;s/monthsspan/months/g' | paste -sd ''-)"
+gameofthrones="$(cat /home/chris/.scripts/tvguide/game_of_thrones_url.txt | awk '/Countdown/{print substr($0,177)}' | sed 's/[</>]//g;s/hourspan/hour/g;s/dayspan/day/g;s/hoursspan/hours/g;s/daysspan/days/g;s/hoursspan/hours/g;s/minspan/min/g;s/minsspan/mins/g;s/,//g;s/weekspan/week/g;s/weeksspan/weeks/g;s/monthspan/month/g;s/monthsspan/months/g' | paste -sd ''-)"
+ancientaliens="$(cat /home/chris/.scripts/tvguide/ancient_aliens_url.txt | awk '/Countdown/{print substr($0,177)}' | sed 's/[</>]//g;s/hourspan/hour/g;s/dayspan/day/g;s/hoursspan/hours/g;s/daysspan/days/g;s/hoursspan/hours/g;s/minspan/min/g;s/minsspan/mins/g;s/,//g;s/weekspan/week/g;s/weeksspan/weeks/g;s/monthspan/month/g;s/monthsspan/months/g' | paste -sd ''-)"
+znation="$(cat /home/chris/.scripts/tvguide/z_nation_url.txt | awk '/Countdown/{print substr($0,177)}' | sed 's/[</>]//g;s/hourspan/hour/g;s/dayspan/day/g;s/hoursspan/hours/g;s/daysspan/days/g;s/hoursspan/hours/g;s/minspan/min/g;s/minsspan/mins/g;s/,//g;s/weekspan/week/g;s/weeksspan/weeks/g;s/monthspan/month/g;s/monthsspan/months/g' | paste -sd ''-)"
+mst3k="$(cat /home/chris/.scripts/tvguide/mst3k_url.txt | awk '/Countdown/{print substr($0,177)}' | sed 's/[</>]//g;s/hourspan/hour/g;s/dayspan/day/g;s/hoursspan/hours/g;s/daysspan/days/g;s/hoursspan/hours/g;s/minspan/min/g;s/minsspan/mins/g;s/,//g;s/weekspan/week/g;s/weeksspan/weeks/g;s/monthspan/month/g;s/monthsspan/months/g' | paste -sd ''-)"
+killjoys="$(cat /home/chris/.scripts/tvguide/killjoys_url.txt | awk '/Countdown/{print substr($0,177)}' | sed 's/[</>]//g;s/hourspan/hour/g;s/dayspan/day/g;s/hoursspan/hours/g;s/daysspan/days/g;s/hoursspan/hours/g;s/minspan/min/g;s/minsspan/mins/g;s/,//g;s/weekspan/week/g;s/weeksspan/weeks/g;s/monthspan/month/g;s/monthsspan/months/g' | paste -sd ''-)"
+
+
+# Echo stuff
+if [[ -z $thebigbangtheory ]]; then
+    thebigbangtheory_p="$(cat /home/chris/.scripts/tvguide/the_big_bang_theory_url.txt | awk '/Date/{print substr($0,57)}' | sed 's/[</>]//g;s/div//g;/^$/d')"
+    thebigbangtheory="The Big Bang Theory     Last Episode >> $thebigbangtheory_p"
+else
+    thebigbangtheory="The Big Bang Theory     Next Episode >> $thebigbangtheory"
+fi
+if [[ -z $rickandmorty ]];then
+    rickandmorty_p="$(cat /home/chris/.scripts/tvguide/rick_and_morty_url.txt | awk '/Date/{print substr($0,57)}' | sed 's/[</>]//g;s/div//g;/^$/d')"
+    rickandmorty="Rick and Morty          Last Episode >> $rickandmorty_p"
+else
+    rickandmorty="Rick and Morty          Next Episode >> $rickandmorty"
+fi
+if [[ -z $theexpanse ]];then
+    theexpanse_p="$(cat /home/chris/.scripts/tvguide/the_expanse_url.txt | awk '/Date/{print substr($0,57)}' | sed 's/[</>]//g;s/div//g;/^$/d')"
+    theexpanse="The Expanse             Last Episode >> $theexpanse_p"
+else
+    theexpanse="The Expanse             Next Episode >> $theexpanse"
+fi
+if [[ -z $strangerthings ]];then
+    strangerthings_p="$(cat /home/chris/.scripts/tvguide/stranger_things_url.txt | awk '/Date/{print substr($0,57)}' | sed 's/[</>]//g;s/div//g;/^$/d')"
+    strangerthings="Stranger Things         Last Episode >> $strangerthings_p"
+else
+    strangerthings="Stranger Things         Next Episode >> $strangerthings"
+fi
+if [[ -z $siliconvalley ]];then
+    siliconvalley_p="$(cat /home/chris/.scripts/tvguide/silicon_valley_url.txt | awk '/Date/{print substr($0,57)}' | sed 's/[</>]//g;s/div//g;/^$/d')"
+    siliconvalley="Silicon Valley          Last Episode >> $siliconvalley_p"
+else
+    siliconvalley="Silicon Valley          Next Episode >> $siliconvalley"
+fi
+if [[ -z $gameofthrones ]];then
+    gameofthrones_p="$(cat /home/chris/.scripts/tvguide/game_of_thrones_url.txt | awk '/Date/{print substr($0,57)}' | sed 's/[</>]//g;s/div//g;/^$/d')"
+    gameofthrones="Game Of Thrones         Last Episode >> $gameofthrones_p"
+else
+    gameofthrones="Game Of Thrones         Next Episode >> $gameofthrones"
+fi
+if [[ -z $ancientaliens ]];then
+    ancientaliens_p="$(cat /home/chris/.scripts/tvguide/ancient_aliens_url.txt | awk '/Date/{print substr($0,57)}' | sed 's/[</>]//g;s/div//g;/^$/d')"
+    ancientaliens="Ancient Aliens          Last Episode >> $ancientaliens_p"
+else
+    ancientaliens="Ancient Aliens          Next Episode >> $ancientaliens"
+fi
+if [[ -z $znation ]];then
+    znation_p="$(cat /home/chris/.scripts/tvguide/z_nation_url.txt | awk '/Date/{print substr($0,57)}' | sed 's/[</>]//g;s/div//g;/^$/d')"
+    znation="Z Nation                Last Episode >> $znation_p"
+else
+    znation="Z Nation                Next Episode >> $znation"
+fi
+
+if [[ -z $mst3k ]];then
+    mst3k_p="$(cat /home/chris/.scripts/tvguide/mst3k_url.txt | awk '/Date/{print substr($0,57)}' | sed 's/[</>]//g;s/div//g;/^$/d')"
+    mst3k="MST3K                   Last Episode >> $mst3k_p"
+else
+    mst3k="MST3K                   Next Episode >> $mst3k"
+fi
+
+if [[ -z $killjoys ]];then
+    killjoys_p="$(cat /home/chris/.scripts/tvguide/killjoys_url.txt | awk '/Date/{print substr($0,57)}' | sed 's/[</>]//g;s/div//g;/^$/d')"
+    killjoys="Killjoys                Last Episode >> $killjoys_p"
+else
+    killjoys="Killjoys                Next Episode >> $killjoys"
+fi
+
+cat > /usr/share/nginx/nextcloud/shows.html << _EOF_
+<!DOCTYPE html>
+<!-- saved from url=(0056)https://startpages.github.io/startpages/mpcsh-startpage/ -->
+<html class="gr__startpages_github_io"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Upcoming Episodes</title>
+        <link rel="stylesheet" href="./startpage_files/shows.css">
+
+    </head>
+    <body data-gr-c-s-loaded="true">
+        <!--[if lte IE 6]>
+            <style>#top, #bottom, #left, #right { display: none; }</style>
+        <![endif]-->
+        <div id="left"></div>
+        <div id="right"></div>
+        <div id="top"></div>
+        <div id="bottom"></div>
+        <div class="container">
+
+            <div class="favorites">
+                <div class="favorites-list">
+                    <ul>
+                        <li><p>Updated: $currentdate</p></li>
+                        <li><pre>$thebigbangtheory</pre></li>
+                        <li><pre>$rickandmorty</pre></li>
+                        <li><pre>$theexpanse</pre></li>
+                        <li><pre>$strangerthings</pre></li>
+                        <li><pre>$siliconvalley</pre></li>
+                        <li><pre>$gameofthrones</pre></li>
+                        <li><pre>$mst3k</pre></li>
+                        <li><pre>$znation</pre></li>
+                        <li><pre>$ancientaliens</pre></li>
+                        <li><pre>$killjoys</pre></li>
+
+
+                    </ul>
+                </div>
+
+
+        </div>
+
+</body></html>
+
+_EOF_

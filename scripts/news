@@ -1,0 +1,18 @@
+#!/bin/sh
+
+RC="\033[0;31m"
+NC="\033[0m"
+
+function newsid() {
+    pgrep -n -u chris newsboat
+}
+
+while [[ $(newsid) != "" ]]
+do
+    echo -en "\r${RC}Newsboat is running.. waiting for update to finish..${NC}"
+    sleep 1
+done
+
+echo -e "\n"
+echo -e "${RC}Starting Newsboat...${NC}\n"
+newsboat

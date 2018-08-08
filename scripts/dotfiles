@@ -1,0 +1,74 @@
+#!/bin/sh
+
+### Paint it red
+RC="\033[0;31m"
+NC="\033[0m"
+
+### Pause for effect
+zzz="sleep .3"
+
+echo -e "${RC}Coping files to ~/tmp/raw_dotfiles${NC}"
+
+### File lists to parse
+dot_conf1="$HOME/.scripts/dotfiles_config.conf"
+dot_conf2="$HOME/.scripts/dotfiles_i3blocks.conf"
+dot_conf3="$HOME/.scripts/dotfiles_scripts.conf"
+dirz="/home/chris/tmp/raw_dotfiles"
+
+### Start Fresh
+rm -rf $dirz
+$zzz
+mkdir $dirz
+$zzz
+mkdir $dirz/config
+$zzz
+mkdir $dirz/i3blocks
+$zzz
+mkdir $dirz/scripts
+$zzz
+mkdir $dirz/config/i3
+$zzz
+mkdir $dirz/config/mpv
+$zzz
+mkdir $dirz/config/tmuxinator
+$zzz
+mkdir $dirz/config/zathura
+$zzz
+mkdir $dirz/config/neofetch
+$zzz
+mkdir $dirz/config/scripts/lemonbar
+$zzz
+mkdir $dirz/config/scripts/tvguide
+$zzz
+
+### $HOME stuff
+cp $HOME/.Xdefaults $dirz/.Xdefaults
+cp $HOME/.Xresources $dirz/.Xresources
+cp $HOME/.zshrc $dirz/.zshrc
+cp $HOME/.i3blocks.conf $dirz/.i3blocks.conf
+cp $HOME/.Xmodmap $dirz/.Xmodmap
+cp $HOME/.zZz/Coded/Testing/C/Swap/load_swap.c $dirz/load_swap.c
+
+$zzz
+
+### Copy to other folders
+while read x; do
+    file_name="$(echo $z | sed 's/.*[/]//')"
+    cp $x $dirz/config/$file_name
+done <$dot_conf1
+
+$zzz
+
+while read y; do
+    file_name="$(echo $z | sed 's/.*[/]//')"
+    cp $y $dirz/i3blocks/$file_name
+done <$dot_conf2
+
+$zzz
+
+while read z; do
+    file_name="$(echo $z | sed 's/.*[/]//')"
+    cp $z $dirz/scripts/$file_name
+done <$dot_conf3
+
+echo -e "${RC}All done. Files were copied to ~/tmp/raw_dotfiles\n${NC}"

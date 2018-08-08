@@ -1,0 +1,42 @@
+#!/bin/sh
+# depends on udiskie
+
+##################################
+### Quick Check For USB Media  ###
+### Middle Click to Unmount    ###
+### Right Click to open Ranger ###
+##################################
+
+COLOR="#FFAF00"
+USB="$(ls /run/media/chris/)"
+DVD="$(ls /run/media/chris/"$USB"/ | grep AUDIO_TS)"
+
+if [[ -n "$DVD" ]]; then
+    echo -e "\ue0b3\ue0ab$USB"
+    echo
+    echo $COLOR
+    exit 0
+fi
+
+if [[ -n "$USB" ]]; then
+    echo -e "\ue0b3\ue00c$USB"
+    echo
+    echo $COLOR
+fi
+
+if [[ -n $BLOCK_INSTANCE ]]; then
+    password=("-h" "$BLOCK_INSTANCE@localhost")
+fi
+
+filter1() {
+    $(udiskie-umount -d "/run/media/chris/$USB")
+}
+
+filter2() {
+    exec urxvt -e ranger "/run/media/chris/"
+}
+
+case $BLOCK_BUTTON in
+    2) $password | filter1 ;;
+    3) $password | filter2 ;;
+esac

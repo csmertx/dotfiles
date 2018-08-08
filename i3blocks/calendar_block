@@ -1,0 +1,20 @@
+#!/bin/sh
+# Changed from bash to /bin/sh
+
+CAL="$(date +'%a %b %d')"
+
+echo -en "\ue01f$CAL"
+
+if [[ -n $BLOCK_INSTANCE ]]; then
+    password=("-h" "$BLOCK_INSTANCE@localhost")
+fi
+
+filter() {
+    zenity --calendar &
+}
+
+
+case $BLOCK_BUTTON in
+    3) $password | filter ;;
+esac
+

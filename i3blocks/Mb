@@ -1,0 +1,9 @@
+#!/bin/sh
+
+DOWN="$(cat /dev/shm/speedtest | awk '/Download:/{print substr($2,0)}')"
+UP="$(cat /dev/shm/speedtest | awk '/Upload:/{print substr($2,0)}')"
+SYM="Mb"
+
+#echo -en "\ue0bf$DOWN/$UP$SYM"
+echo -en "\ue19c$DOWN$SYM $UP$SYM"
+
