@@ -4,7 +4,7 @@
 
 - Probably not POSIX compliant.
 
-_ I make no claims regarding my competency.
+- I make no claims regarding my competency.
 
 - Definitely not ideal for a multi user system.
 
