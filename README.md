@@ -4,7 +4,7 @@
 
 - Probably not POSIX compliant.
 
-- [Imgur album | 20+ screenshots)](https://imgur.com/a/VXpYHBM)
+- [Imgur album | 20+ screenshots](https://imgur.com/a/VXpYHBM)
 
 - I make no claims regarding my competency.
 
