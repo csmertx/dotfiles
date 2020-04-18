@@ -2,7 +2,7 @@
 
 # Here Be Dragons
 
-- Probably not POSIX compliant.
+- Nowhere near POSIX compliant.
 
 - [Imgur album | 20+ screenshots](https://imgur.com/a/VXpYHBM)
 
