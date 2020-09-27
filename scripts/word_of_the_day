@@ -1,0 +1,19 @@
+#!/bin/bash
+
+wotd="/dev/shm/wordoftheday.txt"
+wotdu="/dev/shm/wordoftheday.url"
+#rm $wotd 2>/dev/null
+echo "WOTD: Loading..." > $wotd
+wget -q -O- https://www.merriam-webster.com/word-of-the-day > $wotdu
+
+wordoftheday="$(cat $wotdu \
+| grep og:title \
+| sed 's/ //g' \
+| perl -lne 'print $1 if /Day(.*)/' \
+| sed 's/[:]//g;s/[\"\/>]//g' \
+| tr '[:upper:]' '[:lower:]')"
+
+echo "WOTD: Loading..." > $wotd
+sleep 2
+echo "WOTD: $wordoftheday" > $wotd
+#echo " Word of the Day | $wordoftheday" > $wotd
