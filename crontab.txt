@@ -1,2 +1,3 @@
+#0,5,10,15,20,25,30,35,40,45,50,55 * * * * /home/chris/.scripts/vlc_logging.sh
 0,5,10,15,20,25,30,35,40,45,50,55 * * * * /home/chris/.scripts/video_logging.sh
 0 */1 * * * /home/chris/.scripts/word_of_the_day
