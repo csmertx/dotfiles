@@ -24,9 +24,11 @@ cookiez="$HOME/cookies.txt"
 ## Subtitle Language choice
 subl="en"
 
-## Grab video title
-echo -e "\n\nFetching: $ytfn"
+## Display video title
+echo -e "\n\nFetching: $ytfn\n\n"
 sleep 1
+
+## Start the download process
 yt-dlp -F $ytdurl
 echo -en "\n\nVideo resolution choice? => "
 read vf
@@ -44,7 +46,6 @@ if [[ "$vf" -gt 1 ]]; then
     rm -f "${ytfn}.png"
     rm -f "${ytfn}.webp"
     rm -f "${ytfn}.${subl}.srt"
-    #mv "${ytfn}_.mp4" "${ytfn}.mp4"
 elif [[ "$vf" == "" ]]; then
     cd $ytviddir && yt-dlp --write-thumbnail --write-auto-sub --convert-subs=srt --sub-lang $subl --cookies $cookiez $ytdurl -o '%(title)s.%(ext)s'
     convert "${ytfn}.webp" "${ytfn}.png"
@@ -52,11 +53,10 @@ elif [[ "$vf" == "" ]]; then
     rm -f "${ytfn}.mp4"
     ffmpeg -i "${ytfn}_.mp4" -i "${ytfn}.png" -map 1 -map 0 -c copy -disposition:0 attached_pic "${ytfn}.mp4"
     rm -f "${ytfn}_.mp4"
-    notify-send -u normal -i video "$(echo -e "YT Download Complete:\n$ytfn")"
+    notify-send -u normal -i vido "$(echo -e "YT Download Complete:\n$ytfn")"
     rm -f "${ytfn}.png"
     rm -f "${ytfn}.webp"
     rm -f "${ytfn}.${subl}.srt"
-    #mv "${ytfn}_.mp4" "${ytfn}.mp4"
 else
     echo -en "/n/nNo instructions provided.  Do or do not, there is no try."
 fi
