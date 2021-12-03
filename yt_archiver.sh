@@ -52,7 +52,7 @@ elif [[ "$vf" == "" ]]; then
     rm -f "${ytfn}.mp4"
     ffmpeg -i "${ytfn}_.mp4" -i "${ytfn}.png" -map 1 -map 0 -c copy -disposition:0 attached_pic "${ytfn}.mp4"
     rm -f "${ytfn}_.mp4"
-    notify-send -u normal -i vido "$(echo -e "YT Download Complete:\n$ytfn")"
+    notify-send -u normal -i video "$(echo -e "YT Download Complete:\n$ytfn")"
     rm -f "${ytfn}.png"
     rm -f "${ytfn}.webp"
     rm -f "${ytfn}.${subl}.srt"
