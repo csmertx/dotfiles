@@ -6,6 +6,7 @@
 ### libnotify4 (arch: libnotify)
 ##### Using this in a way that hammers Google servers (10 calls/second+)
 ##### may distrupt your access to the YouTube api and or YouTube.
+### Tested fine for English subtitles.  Might need work for other languages
 
 ## This script downloads specified YouTube video, and applies creator thumbnail,
 ## and auto generated subtitles to metadata
@@ -34,9 +35,18 @@ echo -en "\n\nVideo resolution choice? => "
 read vf
 clear
 
+## Check for creator subtitles
+yt-dlp --write-auto-sub --sub-lang $subl --skip-download $ytdurl
+sleep 1
+if [[ -e "$ytviddir/$ytfn.vtt" ]]; then
+    ytdsub="--write-auto-sub"
+else
+    ytdsub="--write-sub"
+fi
+
 ## Do the thing, and echo the notification.  Errors echo to stdout
 if [[ "$vf" -gt 1 ]]; then
-    cd $ytviddir && yt-dlp --write-thumbnail --write-auto-sub --convert-subs=srt --sub-lang $subl --cookies $cookiez -f $vf $ytdurl -o '%(title)s.%(ext)s'
+    cd $ytviddir && yt-dlp --write-thumbnail $ytdsub --convert-subs=srt --sub-lang $subl --cookies $cookiez -f $vf $ytdurl -o '%(title)s.%(ext)s'
     convert "${ytfn}.webp" "${ytfn}.png"
     ffmpeg -i "${ytfn}.mp4" -i "${ytfn}.${subl}.srt" -c copy -c:s mov_text "${ytfn}_.mp4"
     rm -f "${ytfn}.mp4"
@@ -47,7 +57,7 @@ if [[ "$vf" -gt 1 ]]; then
     rm -f "${ytfn}.webp"
     rm -f "${ytfn}.${subl}.srt"
 elif [[ "$vf" == "" ]]; then
-    cd $ytviddir && yt-dlp --write-thumbnail --write-auto-sub --convert-subs=srt --sub-lang $subl --cookies $cookiez $ytdurl -o '%(title)s.%(ext)s'
+    cd $ytviddir && yt-dlp --write-thumbnail $ytdsub --convert-subs=srt --sub-lang $subl --cookies $cookiez $ytdurl -o '%(title)s.%(ext)s'
     convert "${ytfn}.webp" "${ytfn}.png"
     ffmpeg -i "${ytfn}.mp4" -i "${ytfn}.${subl}.srt" -c copy -c:s mov_text ${ytfn}_.mp4
     rm -f "${ytfn}.mp4"
