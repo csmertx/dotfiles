@@ -6,7 +6,7 @@
 ### libnotify4 (arch: libnotify)
 ##### Using this in a way that hammers Google servers (10 calls/second+)
 ##### may distrupt your access to the YouTube api and or YouTube.
-### Tested fine for English subtitles (more or less).  
+### Tested fine for English subtitles (more or less).
 ### Might need work for other languages
 
 ## This script downloads specified YouTube video, and applies creator thumbnail,
@@ -14,7 +14,6 @@
 ## Example command: ./script.sh "super-neat-yt-video-url.com"
 ## All files download to: $ytviddir
 ## Generating a cookies.txt file can be done with Firefox extension: Cookies.txt
-## For best video/audio leave video resolution choice blank (just like using yt-dlp directly)
 ## I use alias ytd: alias ytd="/home/$HOME/.scripts/yt_archiver.sh" via .bashrc
 
 ## The variables
@@ -48,8 +47,8 @@ else
 fi
 
 ## Do the thing, and echo the notification.  Errors echo to stdout
-if [[ "$vf" -gt 1 ]]; then
-    cd $ytviddir && yt-dlp --write-thumbnail $ytdsub --convert-subs=srt --sub-lang $subl --cookies $cookiez -f $vf $ytdurl -o '%(title)s.%(ext)s'
+if [[ $vf -gt 1 ]]; then
+    cd $ytviddir && yt-dlp --write-thumbnail $ytdsub --convert-subs=srt --sub-lang $subl --cookies $cookiez -f $vf "$ytdurl" -o '%(title)s.%(ext)s'
     convert "${ytfn}.webp" "${ytfn}.png"
     ffmpeg -i "${ytfn}.mp4" -i "${ytfn}.${subl}.srt" -c copy -c:s mov_text "${ytfn}_.mp4"
     rm -f "${ytfn}.mp4"
@@ -59,17 +58,6 @@ if [[ "$vf" -gt 1 ]]; then
     rm -f "${ytfn}.png"
     rm -f "${ytfn}.webp"
     rm -f "${ytfn}.${subl}.srt"
-elif [[ "$vf" == "" ]]; then
-    cd $ytviddir && yt-dlp --write-thumbnail $ytdsub --convert-subs=srt --sub-lang $subl --cookies $cookiez $ytdurl -o '%(title)s.%(ext)s'
-    convert "${ytfn}.webp" "${ytfn}.png"
-    ffmpeg -i "${ytfn}.mp4" -i "${ytfn}.${subl}.srt" -c copy -c:s mov_text ${ytfn}_.mp4
-    rm -f "${ytfn}.mp4"
-    ffmpeg -i "${ytfn}_.mp4" -i "${ytfn}.png" -map 1 -map 0 -c copy -disposition:0 attached_pic "${ytfn}.mp4"
-    rm -f "${ytfn}_.mp4"
-    notify-send -u normal -i vido "$(echo -e "YT Download Complete:\n$ytfn")"
-    rm -f "${ytfn}.png"
-    rm -f "${ytfn}.webp"
-    rm -f "${ytfn}.${subl}.srt"
 else
-    echo -en "/n/nNo instructions provided.  Do or do not, there is no try."
+    echo -en "\n\nNo format specified.  This script works best with mp4."
 fi
