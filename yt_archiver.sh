@@ -6,7 +6,8 @@
 ### libnotify4 (arch: libnotify)
 ##### Using this in a way that hammers Google servers (10 calls/second+)
 ##### may distrupt your access to the YouTube api and or YouTube.
-### Tested fine for English subtitles.  Might need work for other languages
+### Tested fine for English subtitles (more or less).  
+### Might need work for other languages
 
 ## This script downloads specified YouTube video, and applies creator thumbnail,
 ## and auto generated subtitles to metadata
@@ -36,12 +37,14 @@ read vf
 clear
 
 ## Check for creator subtitles
-yt-dlp --write-auto-sub --sub-lang $subl --skip-download $ytdurl
+yt-dlp --write-auto-sub --sub-lang $subl --skip-download $ytdurl > $ytviddir/yt_archiver.txt
 sleep 1
-if [[ -e "$ytviddir/$ytfn.vtt" ]]; then
+if [[ "$(cat $ytviddir/yt_archiver.txt | grep vtt)" ]]; then
     ytdsub="--write-auto-sub"
+    rm -f $ytviddir/yt_archiver.txt
 else
     ytdsub="--write-sub"
+    rm -f $ytviddir/yt_archiver.txt
 fi
 
 ## Do the thing, and echo the notification.  Errors echo to stdout
