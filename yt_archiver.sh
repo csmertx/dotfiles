@@ -9,6 +9,7 @@
 ### Tested fine for English subtitles (more or less).
 ### Might need work for other languages, and it might fail on fresh
 ### videos (YT takes a bit to auto generate subtitles 30-60min)
+### May fail with certain subtitles (CNN, etc.)
 
 ## This script downloads specified YouTube video, and applies creator thumbnail,
 ## and auto generated subtitles to metadata
