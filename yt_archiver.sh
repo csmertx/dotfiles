@@ -28,7 +28,6 @@ ytfn="$(yt-dlp $ytdurl -o "%(title)s" --get-filename)"
 ytviddir="$HOME/Videos/YouTube"
 cookiez="$HOME/cookies.txt"
 
-## Subtitles (default 1 is yes)
 ## Override with: yt_archiver $ytdurl --nosubs
 if [[ "$2" == "--nosubs" ]]; then
     ysubl=0
