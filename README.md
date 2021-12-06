@@ -12,6 +12,7 @@
 - [LearnLinuxTV | Arch Linux: Full Installation Guide - A complete tutorial/walkthrough in one video!](https://www.youtube.com/watch?v=DPLnBPM4DhI)
 - [Linux Command Line and Shell Scripting Bible, 3rd Edition](https://www.oreilly.com/library/view/linux-command-line/9781118983843/)
 - [Arch Linux Wiki](https://wiki.archlinux.org/)
+- [The Konsole Handbook](https://docs.kde.org/trunk5/en/konsole/konsole/konsole.pdf)
 - [ubuntu forums](https://ubuntuforums.org/)
 - [Debian Wiki](https://wiki.debian.org/)
 - [nixCraft](https://www.cyberciti.biz/)
