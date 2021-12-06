@@ -1,4 +1,4 @@
-![dotfiles](dotfiles_screenshot.png "i3wm screenshot")
+![dotfiles](Screenshot_20211205_214935.png "Kubuntu secondary monitor 21-12-05")
 
 # Here Be Dragons?
 
