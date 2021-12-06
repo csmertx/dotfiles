@@ -8,9 +8,10 @@
 
 ## Resources
 - [Bash Beginners Guide](https://tldp.org/LDP/Bash-Beginners-Guide/html/)
+- [Linux Command Line and Shell Scripting Bible, 3rd Edition](https://www.oreilly.com/library/view/linux-command-line/9781118983843/)
+- [Fedora Magazine | Bash Shell Scripting for beginners (Part 1)](https://fedoramagazine.org/bash-shell-scripting-for-beginners-part-1/)
 - [LearnLinuxTV | Introduction into Bash Scripting](https://www.youtube.com/watch?v=NWWvZa-qlRE&list=PLT98CRl2KxKG2RCPkG6EPOA-g1FmLfcZl)
 - [LearnLinuxTV | Arch Linux: Full Installation Guide - A complete tutorial/walkthrough in one video!](https://www.youtube.com/watch?v=DPLnBPM4DhI)
-- [Linux Command Line and Shell Scripting Bible, 3rd Edition](https://www.oreilly.com/library/view/linux-command-line/9781118983843/)
 - [Arch Linux Wiki](https://wiki.archlinux.org/)
 - [The Konsole Handbook](https://docs.kde.org/trunk5/en/konsole/konsole/konsole.pdf)
 - [ubuntu forums](https://ubuntuforums.org/)
