@@ -10,6 +10,7 @@
 - [Bash Beginners Guide](https://tldp.org/LDP/Bash-Beginners-Guide/html/)
 - [LearnLinuxTV | Introduction into Bash Scripting](https://www.youtube.com/watch?v=NWWvZa-qlRE&list=PLT98CRl2KxKG2RCPkG6EPOA-g1FmLfcZl)
 - [LearnLinuxTV | Arch Linux: Full Installation Guide - A complete tutorial/walkthrough in one video!](https://www.youtube.com/watch?v=DPLnBPM4DhI)
+- [Linux Command Line and Shell Scripting Bible, 3rd Edition](https://www.oreilly.com/library/view/linux-command-line/9781118983843/)
 - [Arch Linux Wiki](https://wiki.archlinux.org/)
 - [ubuntu forums](https://ubuntuforums.org/)
 - [Debian Wiki](https://wiki.debian.org/)
