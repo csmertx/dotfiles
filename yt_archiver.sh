@@ -27,6 +27,7 @@ ytdurl="$1"
 ytfn="$(yt-dlp $ytdurl -o "%(title)s" --get-filename)"
 ytviddir="$HOME/Videos/YouTube"
 cookiez="$HOME/cookies.txt"
+cd $ytviddir
 
 ## Override with: yt_archiver $ytdurl --nosubs
 if [[ "$2" == "--nosubs" ]]; then
@@ -54,15 +55,14 @@ if [[ $ysubl -gt 0 ]]; then
     sleep 1
     if [[ "$(cat $ytviddir/yt_archiver.txt | grep vtt)" ]]; then
         ytdsub="--write-auto-sub"
-        rm -f $ytviddir/yt_archiver.txt
     else
         ytdsub="--write-sub"
-        rm -f $ytviddir/yt_archiver.txt
+        #rm -f $ytviddir/yt_archiver.txt
     fi
 
     ## Do the thing, and echo the notification.  Errors echo to stdout
     if [[ $vf -gt 1 ]]; then
-        cd $ytviddir && yt-dlp --write-thumbnail $ytdsub --convert-subs=srt --sub-lang $subl --cookies $cookiez -f $vf "$ytdurl" -o '%(title)s.%(ext)s'
+        yt-dlp --write-thumbnail $ytdsub --convert-subs=srt --sub-lang $subl --cookies $cookiez -f $vf "$ytdurl" -o '%(title)s.%(ext)s'
         convert "${ytfn}.webp" "${ytfn}.png"
         ffmpeg -i "${ytfn}.mp4" -i "${ytfn}.${subl}.srt" -c copy -c:s mov_text "${ytfn}_.mp4"
         rm -f "${ytfn}.mp4"
@@ -72,12 +72,14 @@ if [[ $ysubl -gt 0 ]]; then
         rm -f "${ytfn}.png"
         rm -f "${ytfn}.webp"
         rm -f "${ytfn}.${subl}.srt"
+        rm -f "$(cat $ytviddir/yt_archiver.txt | grep vtt | tail -n1 | sed 's/^.*: //')"
+        rm -f $ytviddir/yt_archiver.txt
     else
         echo -en "\n\nNo format specified.  This script works best with mp4."
     fi
 else
     if [[ $vf -gt 1 ]]; then
-        cd $ytviddir && yt-dlp --write-thumbnail --cookies $cookiez -f $vf "$ytdurl" -o '%(title)s.%(ext)s'
+        yt-dlp --write-thumbnail --cookies $cookiez -f $vf "$ytdurl" -o '%(title)s.%(ext)s'
         convert "${ytfn}.webp" "${ytfn}.png"
         ffmpeg -i "${ytfn}.mp4" -i "${ytfn}.png" -map 1 -map 0 -c copy -disposition:0 attached_pic "${ytfn}_.mp4"
         mv "${ytfn}_.mp4" "${ytfn}.mp4"
