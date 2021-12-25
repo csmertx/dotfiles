@@ -6,6 +6,7 @@
 ### libnotify4 (arch: libnotify)
 
 #### May fail with certain subtitles (CNN, etc.)
+#### Mostly tested exclusively with format 22 (720p .mp4)
 #### One may override embedding subtitles with: yt_archiver URL --nosubs
 
 ## This script downloads specified YouTube video, and applies creator thumbnail,
