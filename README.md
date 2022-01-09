@@ -2,7 +2,7 @@
 
 # Here Be Dragons?
 
-- All stuff here.. works on my systems.. ┻━┻ ︵ ¯\ (ツ)/¯ ︵ ┻━┻
+- Scripts require careful eye for variables, etc.  The older stuff was due to 4GB of RAM, and grade school DOS nostalgia.
 
 - [Imgur album | 20+ screenshots](https://imgur.com/a/VXpYHBM)
 
