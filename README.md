@@ -1,4 +1,4 @@
-![dotfiles](Screenshot_20211205_214935.png "Kubuntu secondary monitor 21-12-05")
+![dotfiles](Screenshot_20220209_192807.png "Kubuntu secondary monitor 21-12-05")
 
 # Here Be Dragons? (previously: @csmertx)
 
