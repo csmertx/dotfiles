@@ -1,5 +1,5 @@
 #
-# Powerline Orange - Tmux Theme
+# Powerline Double Orange - Tmux Theme
 # Created by Jim Myhrberg <contact@jimeh.me>.
 #
 # Inspired by vim-powerline: https://github.com/Lokaltog/powerline
@@ -12,17 +12,19 @@
 set -g status-interval 1
 
 # Basic status bar colors
-set -g status-style fg=colour240,bg=colour233
+#set -g status-style bg=colour233,fg=colour240
+set -g status-bg colour233
+set -g status-fg colour240
 
 # Left side of status bar
 set -g status-left-style bg=colour233,fg=colour243
 set -g status-left-length 40
-set -g status-left "#[fg=colour232,bg=colour130,bold] #S #[fg=colour130,bg=colour240,nobold]#[fg=colour233,bg=colour240] #(whoami) #[fg=colour240,bg=colour235]#[fg=colour240,bg=colour235] #I:#P #[fg=colour235,bg=colour233,nobold]"
+set -g status-left "#[fg=colour233,bg=colour130,bold] #S #[fg=colour130,bg=colour240,nobold]#[fg=colour233,bg=colour240] #(whoami) #[fg=colour240,bg=colour235]#[fg=colour240,bg=colour235] #I:#P #[fg=colour235,bg=colour233,nobold]"
 
 # Right side of status bar
 set -g status-right-style bg=colour233,fg=colour243
 set -g status-right-length 150
-set -g status-right "#[fg=colour235,bg=colour233]#[fg=colour240,bg=colour235] #(cat /dev/shm/wordoftheday.txt) #[fg=colour240,bg=colour235]#[fg=colour233,bg=colour240] %d-%b-%y #[fg=colour245,bg=colour240]#[fg=colour232,bg=colour245,bold] #H "
+set -g status-right "#[fg=colour235,bg=colour233]#[fg=colour240,bg=colour235] #(cat /dev/shm/wordoftheday.txt) #[fg=colour240,bg=colour235]#[fg=colour233,bg=colour240] %a %d-%b-%y #[fg=colour130,bg=colour240]#[fg=colour233,bg=colour130,bold] #H "
 
 # Window status
 set -g window-status-format "  #I:#W#F  "
