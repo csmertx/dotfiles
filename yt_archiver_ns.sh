@@ -5,22 +5,16 @@
 ### imagemagick
 ### libnotify4 (arch: libnotify)
 
-#### May fail with certain subtitles (CNN, etc.)
-#### One may override embedding subtitles with: yt_archiver URL --nosubs
+#### yt-archiver_ns.sh == Version for videos without subtitles to DL
 
 ## This script downloads specified YouTube video, and applies creator thumbnail,
-## and auto generated or creator made subtitles to metadata
 ## Example command: ./script.sh "super-neat-yt-video-url.com"
 ## All files download to: $ytviddir
 ## Generating a cookies.txt file can be done with Firefox extension: Cookies.txt
-## I use alias ytd: alias ytd="/home/$HOME/.scripts/yt_archiver.sh" via .bashrc
+## I use alias ytdns: alias ytdns="/home/$HOME/.scripts/yt_archiver_ns.sh" via .bashrc
 
 ##### Using this in a way that hammers Google servers (10 calls/second+)
 ##### may distrupt your access to the YouTube api and or YouTube.
-
-### Tested fine for English subtitles (more or less--could be hot mess)
-### Might need work for other languages, and it might fail on fresh
-### videos (YT takes a few minutes to auto generate subtitles 30-60min)
 
 ## The variables
 ytdurl="$1"
