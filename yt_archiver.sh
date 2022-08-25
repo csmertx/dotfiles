@@ -6,7 +6,6 @@
 ### libnotify4 (arch: libnotify)
 
 #### May fail with certain subtitles (CNN, etc.)
-#### Mostly tested exclusively with format 22 (720p .mp4)
 #### One may override embedding subtitles with: yt_archiver URL --nosubs
 
 ## This script downloads specified YouTube video, and applies creator thumbnail,
@@ -69,7 +68,11 @@ if [[ $ysubl -gt 0 ]]; then
         rm -f "${ytfn}.mp4"
         ffmpeg -i "${ytfn}_.mp4" -i "${ytfn}.png" -map 1 -map 0 -c copy -disposition:0 attached_pic "${ytfn}.mp4"
         rm -f "${ytfn}_.mp4"
-        notify-send -u normal -i video "$(echo -e "YT Download Complete:\n$ytfn")"
+        if [[ -f "${ytfn}.mp4" ]]; then
+            notify-send -u normal -i video "$(echo -e "YT Download Complete:\n$ytfn")"
+        else
+            notify-send -u normal -i video "$(echo -e "YT Download Failed:\n$ytfn")"
+        fi
         rm -f "${ytfn}.png"
         rm -f "${ytfn}.webp"
         rm -f "${ytfn}.${subl}.srt"
@@ -84,7 +87,11 @@ else
         convert "${ytfn}.webp" "${ytfn}.png"
         ffmpeg -i "${ytfn}.mp4" -i "${ytfn}.png" -map 1 -map 0 -c copy -disposition:0 attached_pic "${ytfn}_.mp4"
         mv "${ytfn}_.mp4" "${ytfn}.mp4"
-        notify-send -u normal -i video "$(echo -e "YT Download Complete:\n$ytfn")"
+        if [[ -f "${ytfn}.mp4" ]]; then
+            notify-send -u normal -i video "$(echo -e "YT Download Complete:\n$ytfn")"
+        else
+            notify-send -u normal -i video "$(echo -e "YT Download Failed:\n$ytfn")"
+        fi
         rm -f "${ytfn}.png"
         rm -f "${ytfn}.webp"
     else
