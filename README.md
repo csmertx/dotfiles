@@ -1,8 +1,8 @@
 ![dotfiles](Screenshot_20220209_192807.png "Kubuntu secondary monitor 21-12-05")
 
-# Here Be Dragons? (previously: @csmertx)
+# Here Be Dragons
 
-- Scripts require careful eye for variables, etc.  The older stuff was due to 4GB of RAM, and grade school DOS nostalgia.
+- For scripts: variables may need adjustment. The Imgur album is from when I was limited to 4GB of RAM.
 
 - [Imgur album | 20+ screenshots](https://imgur.com/a/VXpYHBM)
 
