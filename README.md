@@ -1,4 +1,6 @@
-![dotfiles](Screenshot_20220209_192807.png "Kubuntu secondary monitor 21-12-05")
+![dotfiles](desktop_jan_2023.jpg "Current setup - January 2023 | Thinkcenter M73 | Thinkpad X1 Xtreme Gen. 2")
+
+> Dust is from wood carving and sanding. Whoops
 
 # Here Be Dragons
 
