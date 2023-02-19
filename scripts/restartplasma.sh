@@ -1,10 +1,10 @@
 #!/bin/bash
 
-echo -en "\n\nWas I loaded from Konsole? (y/n) ==> "
+echo -en "\n\nWas I loaded from Konsole or a new Yakuake tab (y/n) ==> "
 read iskonsole
 
 if [[ "$iskonsole" == "n" ]]; then
-    echo -en "\n\nPlease try again, I prefer Konsole..\n\n"
+    echo -en "\n\nPlease try again when ready..\n\n"
     exit 0
 else
     notify-send -u critical "Refreshing Plasma Desktop"
