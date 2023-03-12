@@ -2,6 +2,9 @@
 
 > Dust is from wood carving and sanding. Whoops
 
+# LGM
+All my computer and Linux notes can be found at: [Linux Gremlin Mysteries](https://csmertx.github.io/). Which is hosted via: https://github.com/csmertx/csmertx.github.io
+
 # Here Be Dragons
 
 - For scripts: variables may need adjustment. The Imgur album is from when I was limited to 4GB of RAM.
