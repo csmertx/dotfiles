@@ -140,7 +140,7 @@ let g:NERDTreeHighlightCursorline = 1
 let g:NERDTreeWinSize = 20
 highlight VertSplit cterm=NONE
 set fillchars+=vert:█
-"" If no :NERDTreeToggle via F4, in NORMAL mode try CTRL + w + w, then :q
+"" If no :NERDTreeToggle via F4, in NORMAL mode try CTRL + ww, then :q
 nnoremap <F4> :NERDTreeToggle<cr>
 autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" | b# | endif
 autocmd StdinReadPre * let s:std_in=1
