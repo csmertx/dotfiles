@@ -3,7 +3,7 @@ set nocompatible
 filetype off
 
 """""""""" MAIN
-"set clipboard=unnamed
+set clipboard+=unnamed
 set number
 set numberwidth=3
 set encoding=utf-8
@@ -16,10 +16,11 @@ set autoindent
 set expandtab
 set shiftwidth=4
 set guifont=Hack\ 12
-syntax on
-colorscheme challenger_deep
+autocmd Filetype markdown setlocal syntax=OFF
+"syntax on
+"colorscheme challenger_deep
 "colorscheme deep-space
-"colorscheme angr
+colorscheme angr
 " set fillchars+=vert:│
 
 " Check spelling
@@ -28,7 +29,7 @@ colorscheme challenger_deep
 "[s == select previous word
 "]s == select next word
 "z= provides a list of words to replace current selection
-:map <F5> :setlocal spell! spelllang=en_us<CR>
+:map <F7> :setlocal spell! spelllang=en_us<CR>
 
 " enable all Python syntax highlighting features
 let python_highlight_all = 1
@@ -38,10 +39,10 @@ let python_highlight_all = 1
 nnoremap <F8> :%s/\s\+$//e<cr>
 
 " Comment multiple lines for C and CSS
-nnoremap <F7> :norm i/*   */<cr>
+"nnoremap <F7> :norm i/*   */<cr>
 
 " Fix indentation
-nnoremap <F6> mzgg=G`z<cr>
+"nnoremap <F6> mzgg=G`z<cr>
 
 " Comment lines selected in Visual Mode <#> with F3 [or : and norm i<character>]
 " Uncomment with comment characters selected with x
@@ -85,6 +86,9 @@ filetype plugin indent on
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line"
+" Install: git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+" Error: Not an editor command: Plugin 'VundleVim/Vundle.vim' (See Refresh)
+" Refresh: rm -rf ~/.vim/bundle/Vundle.vim && cd ~/.vim/bundle && git clone https://github.com/VundleVim/Vundle.vim.git
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Airline Config
@@ -136,6 +140,7 @@ let g:NERDTreeHighlightCursorline = 1
 let g:NERDTreeWinSize = 20
 highlight VertSplit cterm=NONE
 set fillchars+=vert:█
+"" If no :NERDTreeToggle via F4, in NORMAL mode try CTRL + w + w, then :q
 nnoremap <F4> :NERDTreeToggle<cr>
 autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" | b# | endif
 autocmd StdinReadPre * let s:std_in=1
