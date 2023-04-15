@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Requires: sxiv (apt-get sxiv)
+# Requires: sxiv and xdotool (apt-get sxiv xdotool)
 
 echo -en "\n\nDisplaying background in 5 seconds, please close Yakuake, Guake, etc. Press q to exit sxiv (image viewer)\n\n"
 sleep 5
