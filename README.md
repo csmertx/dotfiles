@@ -9,7 +9,7 @@ All my computer and Linux notes can be found at: [Linux Gremlin Mysteries](https
 
 - For scripts: variables may need adjustment.
 
-- The Imgur album below is from 2017-2018 via a Windows XP era computer--2006 model purchased in 2014 for $300 with 4GB of RAM--same PC I used to fund everything in the featured screenshot.
+- The Imgur album below is from 2017-2018 via a Windows XP era computer--2006 model purchased in 2014 for $300 with 4GB of RAM--same PC I used to fund everything in the featured screenshot above.
 
     - [Imgur album | 20+ screenshots](https://imgur.com/a/VXpYHBM)
 
