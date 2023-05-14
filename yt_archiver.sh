@@ -4,9 +4,9 @@
 ### yt-dlp: https://github.com/yt-dlp/yt-dlp#installation
 ### imagemagick
 ### libnotify4 (arch: libnotify)
+### ffmpeg (merges thumbnail, subtitles, and m4a audio to final video file--up to 1080p 60fps)
 
 #### May fail with certain subtitles (CNN, etc.)
-#### One may override embedding subtitles with: yt_archiver URL --nosubs
 
 ## This script downloads specified YouTube video, and applies creator thumbnail,
 ## and auto generated or creator made subtitles to metadata
@@ -27,6 +27,8 @@ ytdurl="$1"
 ytfn="$(yt-dlp $ytdurl -o "%(title)s" --get-filename)"
 ytviddir="$HOME/Videos/YouTube"
 cookiez="$HOME/cookies.txt"
+ytm4a="${RANDOM}.m4a"
+
 cd $ytviddir
 
 ## Override with: yt_archiver $ytdurl --nosubs
@@ -63,21 +65,24 @@ if [[ $ysubl -gt 0 ]]; then
     ## Do the thing, and echo the notification.  Errors echo to stdout
     if [[ $vf -gt 1 ]]; then
         yt-dlp --write-thumbnail $ytdsub --convert-subs=srt --sub-lang $subl --cookies $cookiez -f $vf "$ytdurl" -o '%(title)s.%(ext)s'
+        yt-dlp -f 140 "$ytdurl" -o "$ytm4a"
+        ffmpeg -i "${ytfn}.mp4" -i "$ytm4a" -c copy "${ytfn}_.mp4"
+        rm -f "$ytm4a"
         convert "${ytfn}.webp" "${ytfn}.png"
-        ffmpeg -i "${ytfn}.mp4" -i "${ytfn}.${subl}.srt" -c copy -c:s mov_text "${ytfn}_.mp4"
-        rm -f "${ytfn}.mp4"
-        ffmpeg -i "${ytfn}_.mp4" -i "${ytfn}.png" -map 1 -map 0 -c copy -disposition:0 attached_pic "${ytfn}.mp4"
+        ffmpeg -i "${ytfn}_.mp4" -i "${ytfn}.${subl}.srt" -c copy -c:s mov_text "${ytfn}__.mp4"
         rm -f "${ytfn}_.mp4"
-        if [[ -f "${ytfn}.mp4" ]]; then
-            notify-send -u normal -i video "$(echo -e "YT Download Complete:\n$ytfn")"
-        else
-            notify-send -u normal -i video "$(echo -e "YT Download Failed:\n$ytfn")"
-        fi
+        ffmpeg -i "${ytfn}__.mp4" -i "${ytfn}.png" -map 1 -map 0 -c copy -disposition:0 attached_pic "${ytfn}.mp4"
+        rm -f "${ytfn}__.mp4"
         rm -f "${ytfn}.png"
         rm -f "${ytfn}.webp"
         rm -f "${ytfn}.${subl}.srt"
         rm -f "$(cat $ytviddir/yt_archiver.txt | grep vtt | tail -n1 | sed 's/^.*: //')"
         rm -f $ytviddir/yt_archiver.txt
+        if [[ -f "${ytfn}.mp4" ]]; then
+            notify-send -u normal -i video "$(echo -e "YT Download Complete:\n$ytfn")"
+        else
+            notify-send -u normal -i video "$(echo -e "YT Download Failed:\n$ytfn")"
+        fi
     else
         echo -en "\n\nNo format specified.  This script works best with mp4."
     fi
@@ -87,13 +92,17 @@ else
         convert "${ytfn}.webp" "${ytfn}.png"
         ffmpeg -i "${ytfn}.mp4" -i "${ytfn}.png" -map 1 -map 0 -c copy -disposition:0 attached_pic "${ytfn}_.mp4"
         mv "${ytfn}_.mp4" "${ytfn}.mp4"
+#        if [[ $vf -eq 299 || $vf -eq 137 ]]; then
+            yt-dlp -f 140 "$ytdurl" -o "$ytm4a"
+            ffmpeg -i "${ytfn}.mp4" -i "$ytm4a" -c copy "${ytfn}_.mp4"
+            mv "${ytfn}_.mp4" "${ytfn}.mp4"
+            rm -f "$ytm4a"
+#        fi
         if [[ -f "${ytfn}.mp4" ]]; then
             notify-send -u normal -i video "$(echo -e "YT Download Complete:\n$ytfn")"
         else
             notify-send -u normal -i video "$(echo -e "YT Download Failed:\n$ytfn")"
         fi
-        rm -f "${ytfn}.png"
-        rm -f "${ytfn}.webp"
     else
         echo -en "\n\nNo format specified.  This script works best with mp4."
     fi
