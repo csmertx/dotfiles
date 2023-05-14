@@ -7,9 +7,11 @@ All my computer and Linux notes can be found at: [Linux Gremlin Mysteries](https
 
 # Here Be Dragons
 
-- For scripts: variables may need adjustment. The Imgur album is from when I was limited to 4GB of RAM.
+- For scripts: variables may need adjustment.
 
-- [Imgur album | 20+ screenshots](https://imgur.com/a/VXpYHBM)
+- The Imgur album below is from 2017-2018 via a Windows XP era computer--2006 model purchased in 2014 for $300 with 4GB of RAM--same PC I used to fund everything in the featured screenshot.
+
+    - [Imgur album | 20+ screenshots](https://imgur.com/a/VXpYHBM)
 
 ## Resources
 - [Bash Beginners Guide](https://tldp.org/LDP/Bash-Beginners-Guide/html/)
