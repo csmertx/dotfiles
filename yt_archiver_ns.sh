@@ -1,4 +1,4 @@
-#!/bin/bash
+
 
 ### This script requires the following software
 ### yt-dlp: https://github.com/yt-dlp/yt-dlp#installation
@@ -43,6 +43,7 @@ if [[ $vf -gt 1 ]]; then
     convert "${ytfn}.webp" "${ytfn}.png"
     yt-dlp -f 140 "$ytdurl" -o "$ytm4a"
     ffmpeg -i "${ytfn}.mp4" -i "$ytm4a" -c copy "${ytfn}_.mp4"
+    rm -f "${ytfn}.mp4
     rm -f "$ytm4a"
     ffmpeg -i "${ytfn}_.mp4" -i "${ytfn}.png" -map 1 -map 0 -c copy -disposition:0 attached_pic "${ytfn}.mp4"
     if [[ -f "${ytfn}.mp4" ]]; then
