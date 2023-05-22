@@ -67,7 +67,7 @@ if [[ $ysubl -gt 0 ]]; then
         yt-dlp --write-thumbnail $ytdsub --convert-subs=srt --sub-lang $subl --cookies $cookiez -f $vf "$ytdurl" -o '%(title)s.%(ext)s'
         yt-dlp -f 140 "$ytdurl" -o "$ytm4a"
         ffmpeg -i "${ytfn}.mp4" -i "$ytm4a" -c copy "${ytfn}_.mp4"
-        rm -f "${ytfn}.mp4
+        rm -f "${ytfn}.mp4"
         rm -f "$ytm4a"
         convert "${ytfn}.webp" "${ytfn}.png"
         ffmpeg -i "${ytfn}_.mp4" -i "${ytfn}.${subl}.srt" -c copy -c:s mov_text "${ytfn}__.mp4"
@@ -96,6 +96,7 @@ else
 #        if [[ $vf -eq 299 || $vf -eq 137 ]]; then
             yt-dlp -f 140 "$ytdurl" -o "$ytm4a"
             ffmpeg -i "${ytfn}.mp4" -i "$ytm4a" -c copy "${ytfn}_.mp4"
+            rm -f "${ytfn}.mp4"
             mv "${ytfn}_.mp4" "${ytfn}.mp4"
             rm -f "$ytm4a"
 #        fi
