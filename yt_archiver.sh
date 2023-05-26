@@ -28,6 +28,7 @@ ytfn="$(yt-dlp $ytdurl -o "%(title)s" --get-filename)"
 ytviddir="$HOME/Videos/YouTube"
 cookiez="$HOME/cookies.txt"
 ytm4a="${RANDOM}.m4a"
+ytdf="${RANDOM}.txt"
 
 cd $ytviddir
 
@@ -53,13 +54,13 @@ clear
 
 if [[ $ysubl -gt 0 ]]; then
     ## Check for creator subtitles
-    yt-dlp --write-auto-sub --sub-lang $subl --skip-download $ytdurl > $ytviddir/yt_archiver.txt
+    yt-dlp --write-auto-sub --sub-lang $subl --skip-download $ytdurl > $ytviddir/${ytdf}
     sleep 1
-    if [[ "$(cat $ytviddir/yt_archiver.txt | grep vtt)" ]]; then
+    if [[ "$(cat $ytviddir/${ytdf} | grep vtt)" ]]; then
         ytdsub="--write-auto-sub"
     else
         ytdsub="--write-sub"
-        #rm -f $ytviddir/yt_archiver.txt
+        #rm -f $ytviddir/${ytdf}
     fi
 
     ## Do the thing, and echo the notification.  Errors echo to stdout
@@ -77,8 +78,8 @@ if [[ $ysubl -gt 0 ]]; then
         rm -f "${ytfn}.png"
         rm -f "${ytfn}.webp"
         rm -f "${ytfn}.${subl}.srt"
-        rm -f "$(cat $ytviddir/yt_archiver.txt | grep vtt | tail -n1 | sed 's/^.*: //')"
-        rm -f $ytviddir/yt_archiver.txt
+        rm -f "$(cat $ytviddir/${ytdf} | grep vtt | tail -n1 | sed 's/^.*: //')"
+        rm -f $ytviddir/${ytdf}
         if [[ -f "${ytfn}.mp4" ]]; then
             notify-send -u normal -i video "$(echo -e "YT Download Complete:\n$ytfn")"
         else
