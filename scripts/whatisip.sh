@@ -1,10 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
-###############
-### csmertx ###
-###############
-
+# csmertx 2023
 # sed for COUNTRY might need some adjustment
+# Uses dig command: sudo apt-get install dnsutils
 IP="$(dig +short myip.opendns.com @resolver1.opendns.com)"
 url="https://ipaddress.pro/"
 url_local="/home/$USER/.scripts/whatip.txt"
@@ -21,11 +19,7 @@ STATE2="$( cat "$url_local" | grep "State" | tr ',' '\
 ' | grep "$P_STATE" | awk '{print substr($1,40)}' | sed 's/[<>]//g;s/td//g;s/tr//g;s/img//g;s/[/]//g;s/[d]$//' | tr -d '\n')"
 
 printf "\n"
-echo "   => $IP"
-echo "   => $ISP"
-echo "   => $COUNTRY"
-echo "   => $CITY, $STATE2"
-
-
-
-
+echo -e "   IP Address\n   ! $IP\n"
+echo -e "   Internet Service Provider\n   ! $ISP\n"
+echo -e "   Country\n   ! $COUNTRY\n"
+echo -e "   City/Provence, State\n   ! $CITY, $STATE2\n"
