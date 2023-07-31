@@ -5,6 +5,7 @@
 ### imagemagick
 ### libnotify4 (arch: libnotify)
 ### ffmpeg (merges thumbnail, subtitles, and m4a audio to final video file--up to 1080p 60fps)
+### Jellyfin for local network streaming
 
 #### May fail with certain subtitles (CNN, etc.)
 
@@ -75,7 +76,7 @@ if [[ $ysubl -gt 0 ]]; then
         rm -f "${ytfn}_.mp4"
         ffmpeg -i "${ytfn}__.mp4" -i "${ytfn}.png" -map 1 -map 0 -c copy -disposition:0 attached_pic "${ytfn}.mp4"
         rm -f "${ytfn}__.mp4"
-        rm -f "${ytfn}.png"
+        mv "${ytfn}.png" "${ytfn}-poster.png"
         rm -f "${ytfn}.webp"
         rm -f "${ytfn}.${subl}.srt"
         rm -f "$(cat $ytviddir/${ytdf} | grep vtt | tail -n1 | sed 's/^.*: //')"
@@ -100,6 +101,7 @@ else
             rm -f "${ytfn}.mp4"
             mv "${ytfn}_.mp4" "${ytfn}.mp4"
             rm -f "$ytm4a"
+            mv "${ytfn}.png" "${ytfn}-poster.png"
 #        fi
         if [[ -f "${ytfn}.mp4" ]]; then
             notify-send -u normal -i video "$(echo -e "YT Download Complete:\n$ytfn")"

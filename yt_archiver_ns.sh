@@ -5,6 +5,7 @@
 ### imagemagick
 ### libnotify4 (arch: libnotify)
 ### ffmpeg (merges thumbnail, subtitles, and m4a audio to final video file--up to 1080p 60fps)
+### Jellyfin for local network streaming
 
 ## This script downloads specified YouTube video, and applies creator thumbnail,
 ## and auto generated or creator made subtitles to metadata
@@ -43,7 +44,7 @@ if [[ $vf -gt 1 ]]; then
     convert "${ytfn}.webp" "${ytfn}.png"
     yt-dlp -f 140 "$ytdurl" -o "$ytm4a"
     ffmpeg -i "${ytfn}.mp4" -i "$ytm4a" -c copy "${ytfn}_.mp4"
-    rm -f "${ytfn}.mp4
+    rm -f "${ytfn}.mp4"
     rm -f "$ytm4a"
     ffmpeg -i "${ytfn}_.mp4" -i "${ytfn}.png" -map 1 -map 0 -c copy -disposition:0 attached_pic "${ytfn}.mp4"
     if [[ -f "${ytfn}.mp4" ]]; then
@@ -51,8 +52,9 @@ if [[ $vf -gt 1 ]]; then
     else
         notify-send -u normal -i video "$(echo -e "YT Download Failed:\n$ytfn")"
     fi
-    rm -f "${ytfn}.png"
+    mv "${ytfn}.png" "${ytfn}-poster.png"
     rm -f "${ytfn}.webp"
+    rm -f "${ytfn}_.mp4"
 else
     echo -en "\n\nNo format specified.  This script works best with mp4."
 fi
