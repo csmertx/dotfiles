@@ -40,7 +40,7 @@ read vf
 clear
 
 if [[ $vf -gt 1 ]]; then
-    yt-dlp --write-thumbnail --cookies $cookiez -f $vf "$ytdurl" -o '%(title)s.%(ext)s'
+    yt-dlp --write-thumbnail --add-metadata --cookies $cookiez -f $vf "$ytdurl" -o '%(title)s.%(ext)s'
     convert "${ytfn}.webp" "${ytfn}.png"
     yt-dlp -f 140 "$ytdurl" -o "$ytm4a"
     ffmpeg -i "${ytfn}.mp4" -i "$ytm4a" -c copy "${ytfn}_.mp4"
