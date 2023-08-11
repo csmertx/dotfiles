@@ -1,5 +1,5 @@
-
-
+#!/bin/bash
+### This script does not check for network quality 
 ### This script requires the following software
 ### yt-dlp: https://github.com/yt-dlp/yt-dlp#installation
 ### imagemagick
