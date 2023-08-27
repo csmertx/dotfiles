@@ -11,6 +11,6 @@ else
     sleep 2
     killall plasmashell
     sleep 5
-    kstart5 plasmashell
+    kstart5 plasmashell &
     notify-send -u critical "Plasma Desktop Refreshment Complete"
 fi
