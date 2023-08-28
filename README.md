@@ -2,6 +2,20 @@
 
 > Dust is from wood carving and sanding. Whoops
 
+# Trouble with yt-dlp and Ubuntu 23.04 (fragment download error)
+
+Not sure if I was seeing an isolated issue, but here is the steps I took to download stuff again
+
+- ```sudo apt-get remove yt-dlp```
+
+- Clear other instances of yt-dlp from the system (/usr/local/bin/yt-dlp, etc.)
+
+- Linux/BSD button via [Github: yt-dlp/yt-dlp](https://github.com/yt-dlp/yt-dlp)
+
+- Toss the binary in $HOME/.local/bin
+
+- ```sudo chmod -X $HOME/.local/bin/yt-dlp```
+
 # LGM
 All my computer and Linux notes can be found at: [Linux Gremlin Mysteries](https://csmertx.github.io/). Which is hosted via: https://github.com/csmertx/csmertx.github.io
 
