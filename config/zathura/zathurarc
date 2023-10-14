@@ -1,3 +1,7 @@
+# https://pwmt.org/projects/zathura/documentation/
+# PRESS <a> for single page mode
+# flip pages via <J> or <K> (shift)
+
 #set recolor-darkcolor "#8FE0DD"
 #set recolor-lightcolor "#87D7FF"
 set recolor true
@@ -10,6 +14,7 @@ set completion-fg "#FFAF00"
 set default-fg "#FFFFFF"
 set default-bg "#000000"
 
+#map <F11> best-fit
 map <Tab> toggle_index
 map j scroll down
 map k scroll up
