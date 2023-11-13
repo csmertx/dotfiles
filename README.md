@@ -27,6 +27,12 @@ All my computer and Linux notes can be found at: [Linux Gremlin Mysteries](https
 
     - [Imgur album | 20+ screenshots](https://imgur.com/a/VXpYHBM)
 
+## KDE Plasma Logo
+
+- Logo of the 🔗[KDE Community](https://kde.org/ "KDE Community")
+
+- Referenced via 🔗[KDE | Press Kit | KDE Clipart](https://kde.org/stuff/clipart/ "KDE | Press Kit | KDE Clipart").
+
 ## Resources
 - [Bash Beginners Guide](https://tldp.org/LDP/Bash-Beginners-Guide/html/)
 - [Linux Command Line and Shell Scripting Bible, 3rd Edition](https://www.oreilly.com/library/view/linux-command-line/9781118983843/)
