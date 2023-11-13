@@ -44,6 +44,5 @@ All my computer and Linux notes can be found at: 🔗[Linux Gremlin Mysteries](h
 - 🔗[ubuntu forums](https://ubuntuforums.org/)
 - 🔗[Debian Wiki](https://wiki.debian.org/)
 - 🔗[nixCraft](https://www.cyberciti.biz/)
-- 🔗[aristocratos/bpytop: Linux/OSX/FreeBSD resource monitor
-](🔗https://github.com/aristocratos/bpytop)
+- 🔗[aristocratos/bpytop: Linux/OSX/FreeBSD resource monitor](https://github.com/aristocratos/bpytop)
 - 🔗[Vintage Linux](https://archive.org/search.php?query=linux&and%5B%5D=collection%3A%22vintagesoftware%22&page=1)
