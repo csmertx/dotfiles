@@ -1,6 +1,6 @@
 ![dotfiles](home_lab_Dec_25_2023.jpg "Current setup - January 2023 | Thinkcenter M73 | Thinkpad X1 Xtreme Gen. 2")
 
-> Dust is from wood carving and sanding. Whoops. Insufficient shelving too
+> It's like a rough life draft or something
 
 # Trouble with yt-dlp and Ubuntu 23.04 (fragment download error)
 
