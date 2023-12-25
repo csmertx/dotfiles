@@ -1,4 +1,4 @@
-![dotfiles](home_lab_Dec_25_2023.jpg "Current setup - January 2023 | Thinkcenter M73 | Thinkpad X1 Xtreme Gen. 2")
+![dotfiles](home_lab_Dec_25_2023.jpg "Home Lab: December 25th, 2023")
 
 > It's like a rough life draft or something
 
