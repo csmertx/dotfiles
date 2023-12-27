@@ -12,7 +12,7 @@ Not sure if I was seeing an isolated issue, but here is the steps I took to down
 
 - Linux/BSD button via 🔗[Github: yt-dlp/yt-dlp](https://github.com/yt-dlp/yt-dlp)
 
-- Toss the binary in $HOME/.local/bin
+- Copy the binary to $HOME/.local/bin
 
 - ```sudo chmod -X $HOME/.local/bin/yt-dlp```
 
