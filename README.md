@@ -14,7 +14,7 @@ Not sure if I was seeing an isolated issue, but here is the steps I took to down
 
 - Copy the binary to $HOME/.local/bin
 
-- ```sudo chmod -X $HOME/.local/bin/yt-dlp```
+- ```sudo chmod -x $HOME/.local/bin/yt-dlp```
 
 # LGM
 All my computer and Linux notes can be found at: 🔗[Linux Gremlin Mysteries](https://csmertx.github.io/). Which is hosted via: 🔗https://github.com/csmertx/csmertx.github.io
