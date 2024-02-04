@@ -84,6 +84,7 @@ if [[ $ysubl -gt 0 ]]; then
         rm -f "$(cat $ytviddir/${ytdf} | grep vtt | tail -n1 | sed 's/^.*: //')"
         rm -f $ytviddir/${ytdf}
         if [[ -f "${ytfn}.mp4" ]]; then
+            # Use Notification Thumbnails
             notify-send -u normal -i "$ytviddir/${ytthumb}_150x84.png" "YT Download Complete" "$ytfn"
             sleep 1
             rm -f "${ytviddir}/${ytthumb}_150x84.png"
@@ -109,6 +110,7 @@ else
             mv "${ytfn}.png" "${ytfn}-poster.png"
 #        fi
         if [[ -f "${ytfn}.mp4" ]]; then
+            # Use Notification Thumbnails
             notify-send -u normal -i "$ytviddir/${ytthumb}_150x84.png" "YT Download Complete" "$ytfn"
             sleep 1
             rm -f "${ytviddir}/${ytthumb}_150x84.png"

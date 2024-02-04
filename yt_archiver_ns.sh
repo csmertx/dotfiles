@@ -51,8 +51,8 @@ if [[ $vf -gt 1 ]]; then
     rm -f "$ytm4a"
     ffmpeg -i "${ytfn}_.mp4" -i "${ytfn}.png" -map 1 -map 0 -c copy -disposition:0 attached_pic "${ytfn}.mp4"
     if [[ -f "${ytfn}.mp4" ]]; then
+        # Use Notification Thumbnails
         notify-send -u normal -i "$ytviddir/${ytthumb}_150x84.png" "YT Download Complete" "$ytfn"
-        #notify-send -u normal -i video "$(echo -e "YT Download Complete:\n$ytfn")"
         sleep 1
         rm -f "${ytviddir}/${ytthumb}_150x84.png"
     else
