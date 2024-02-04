@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# This script does not check for network quality
-
 ### This script requires the following software
 ### yt-dlp: https://github.com/yt-dlp/yt-dlp#installation
 ### imagemagick
@@ -32,6 +30,7 @@ ytviddir="$HOME/Videos/YouTube"
 cookiez="$HOME/cookies.txt"
 ytm4a="${RANDOM}.m4a"
 ytdf="${RANDOM}.txt"
+ytthumb="${RANDOM}"
 
 cd $ytviddir
 
@@ -46,7 +45,7 @@ fi
 subl="en"
 
 ## Display video title
-echo -e "\n\nFetching: $ytfn\n\n"
+echo -e "\n\n==> Fetching: $ytfn\n\n"
 sleep 1
 
 ## Start the download process
@@ -74,6 +73,7 @@ if [[ $ysubl -gt 0 ]]; then
         rm -f "${ytfn}.mp4"
         rm -f "$ytm4a"
         convert "${ytfn}.webp" "${ytfn}.png"
+        convert "${ytfn}.png" -resize 150x84^ -gravity center -extent 150x84 "${ytthumb}_150x84.png"
         ffmpeg -i "${ytfn}_.mp4" -i "${ytfn}.${subl}.srt" -c copy -c:s mov_text "${ytfn}__.mp4"
         rm -f "${ytfn}_.mp4"
         ffmpeg -i "${ytfn}__.mp4" -i "${ytfn}.png" -map 1 -map 0 -c copy -disposition:0 attached_pic "${ytfn}.mp4"
@@ -84,7 +84,9 @@ if [[ $ysubl -gt 0 ]]; then
         rm -f "$(cat $ytviddir/${ytdf} | grep vtt | tail -n1 | sed 's/^.*: //')"
         rm -f $ytviddir/${ytdf}
         if [[ -f "${ytfn}.mp4" ]]; then
-            notify-send -u normal -i video "$(echo -e "YT Download Complete:\n$ytfn")"
+            notify-send -u normal -i "$ytviddir/${ytthumb}_150x84.png" "YT Download Complete" "$ytfn"
+            sleep 1
+            rm -f "${ytviddir}/${ytthumb}_150x84.png"
         else
             notify-send -u normal -i video "$(echo -e "YT Download Failed:\n$ytfn")"
         fi
@@ -95,6 +97,7 @@ else
     if [[ $vf -gt 1 ]]; then
         yt-dlp --write-thumbnail --add-metadata --cookies $cookiez -f $vf "$ytdurl" -o '%(title)s.%(ext)s'
         convert "${ytfn}.webp" "${ytfn}.png"
+        convert "${ytfn}.png" -resize 150x84^ -gravity center -extent 150x84 "${ytthumb}_150x84.png"
         ffmpeg -i "${ytfn}.mp4" -i "${ytfn}.png" -map 1 -map 0 -c copy -disposition:0 attached_pic "${ytfn}_.mp4"
         mv "${ytfn}_.mp4" "${ytfn}.mp4"
 #        if [[ $vf -eq 299 || $vf -eq 137 ]]; then
@@ -106,7 +109,9 @@ else
             mv "${ytfn}.png" "${ytfn}-poster.png"
 #        fi
         if [[ -f "${ytfn}.mp4" ]]; then
-            notify-send -u normal -i video "$(echo -e "YT Download Complete:\n$ytfn")"
+            notify-send -u normal -i "$ytviddir/${ytthumb}_150x84.png" "YT Download Complete" "$ytfn"
+            sleep 1
+            rm -f "${ytviddir}/${ytthumb}_150x84.png"
         else
             notify-send -u normal -i video "$(echo -e "YT Download Failed:\n$ytfn")"
         fi
