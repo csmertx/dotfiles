@@ -10,7 +10,7 @@ Not sure if I was seeing an isolated issue, but here is the steps I took to down
 
 - Clear other instances of yt-dlp from the system (/usr/local/bin/yt-dlp, etc.)
 
-- Linux/BSD button via 🔗[Github: yt-dlp/yt-dlp](https://github.com/yt-dlp/yt-dlp)
+- Linux/BSD button via 🔗[Github: yt-dlp/yt-dlp](https://github.com/yt-dlp/yt-dlp?tab=readme-ov-file#installation)
 
 - Copy the binary to $HOME/.local/bin
 
