@@ -5,7 +5,7 @@
 
 # ex: crontab -e
 # 0 */1 * * * /home/user/.scripts/moon_phase.sh
-# Add to Tmux theme via: #( cat '/dev/shm/moon_phase_parsed.txt')
+# Add to Tmux theme via: #(cat '/dev/shm/moon_phase_parsed.txt')
 # Or however you add scripts to Tmux
 
 TADMP="https://www.moongiant.com/phase/today/"
