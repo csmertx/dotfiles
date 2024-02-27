@@ -61,7 +61,5 @@ else
 fi
 
 # Print to temp file
-
 echo -en "Moon: $TADMPI $MOONICON" > "$MOON_PHASE_PARSED"
-cd ~
 exit 0
