@@ -35,7 +35,7 @@ ALBUMART="$(find *.${ALBUMAFT} 2> /dev/null)"
 
 for f in *.mp3;
 do
-    SONGTAG="$(echo "$f" | sed "s/.*- //g" | sed "s/${SPCTAG}.*//g")"
+    SONGTAG="$(echo "$f" | sed "s/.*- //g" | sed "s/(\\${SPCTAG}.*//g")"
     TRACKNUM="$(echo "$f" | cut -d . -f 1)"
     id3v2 -a "$ARTISTTAG" -A "$ALBUMTAG" -t "$SONGTAG" -y "$ALBUMY" -T "$TRACKNUM" "$f"
     ffmpeg -i "$f" -i "$ALBUMART" -map_metadata 0 -map 0 -map 1 "${NMP3DIR}/${f}"
