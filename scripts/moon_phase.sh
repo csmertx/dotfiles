@@ -48,7 +48,7 @@ elif [[ "$TADMPS" == "NewMoon" ]]; then
     MOONICON="🌑"
 elif [[ "$TADMPS" == "WaningCrecent" ]]; then
     MOONICON="🌘"
-elif [[ "$TADMPS" == "ThirdQuarter" ]]; then
+elif [[ "$TADMPS" == "LastQuarter" ]]; then
     MOONICON="🌗"
 elif [[ "$TADMPS" == "WaningGibbous" ]]; then
     MOONICON="🌖"
