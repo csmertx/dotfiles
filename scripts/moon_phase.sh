@@ -42,11 +42,11 @@ TADMPS="$(cat "$TXTPARSE" | grep "%" | sed -n '1p' | sed 's/.*-//' | sed 's/with
 
 if [[ "$TADMPS" == "FirstQuarter" ]]; then
     MOONICON="🌓"
-elif [[ "$TADMPS" == "WaxingCrecent" ]]; then
+elif [[ "$TADMPS" == "WaxingCrescent" ]]; then
     MOONICON="🌒"
 elif [[ "$TADMPS" == "NewMoon" ]]; then
     MOONICON="🌑"
-elif [[ "$TADMPS" == "WaningCrecent" ]]; then
+elif [[ "$TADMPS" == "WaningCrescent" ]]; then
     MOONICON="🌘"
 elif [[ "$TADMPS" == "LastQuarter" ]]; then
     MOONICON="🌗"
