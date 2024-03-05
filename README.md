@@ -4,7 +4,7 @@
 
 # Trouble with yt-dlp and Ubuntu 23.04 (fragment download error)
 
-Not sure if I was seeing an isolated issue, but here is the steps I took to download stuff again
+Here are the steps I took to download stuff again
 
 - ```sudo apt-get remove yt-dlp```
 
