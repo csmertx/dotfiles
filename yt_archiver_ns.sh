@@ -21,6 +21,9 @@
 ### Might need work for other languages, and it might fail on fresh
 ### videos (YT takes a few minutes to auto generate subtitles 30-60min)
 
+## Allow the use of exclamations in Bash (Linux Mint/Debian)
+# set +H
+
 ## The variables
 ytdurl="$1"
 ytfn="$(yt-dlp $ytdurl -o "%(title)s" --get-filename)"
