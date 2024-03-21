@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Requires
+# ffmpeg
+# id3v2
+
 ## Works with specific filename formatting
 # 1. French 79 - Between the Buttons (Olympic).mp3
 
@@ -33,11 +37,12 @@ read ALBUMAFT
 
 ALBUMART="$(find *.${ALBUMAFT} 2> /dev/null)"
 
-for f in *.mp3;
+for file in *.mp3;
 do
-    SONGTAG="$(echo "$f" | sed "s/.*- //g" | sed "s/(\\${SPCTAG}.*//g")"
-    TRACKNUM="$(echo "$f" | cut -d . -f 1)"
-    id3v2 -a "$ARTISTTAG" -A "$ALBUMTAG" -t "$SONGTAG" -y "$ALBUMY" -T "$TRACKNUM" "$f"
-    ffmpeg -i "$f" -i "$ALBUMART" -map_metadata 0 -map 0 -map 1 "${NMP3DIR}/${f}"
+    SONGTAG="$(echo "$file" | sed "s/.*- //g" | sed "s/(\\${SPCTAG}.*//g" | sed s'/.$//' )"
+    TRACKNUM="$(echo "$file" | sed "s/[.].*$//")"
+    id3v2 -a "$ARTISTTAG" -A "$ALBUMTAG" -t "$SONGTAG" -y "$ALBUMY" -T "$TRACKNUM" "$file"
+    #echo -e "$ARTISTTAG - $ALBUMTAG - $SONGTAG - $ALBUMY - $TRACKNUM"
+    ffmpeg -i "$file" -i "$ALBUMART" -map_metadata 0 -map 0 -map 1 "${NMP3DIR}/${file}"
     sleep 1
 done
