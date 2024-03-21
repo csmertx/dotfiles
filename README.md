@@ -2,22 +2,8 @@
 
 > It's like a rough life draft or something
 
-# Trouble with yt-dlp and Ubuntu 23.04 (fragment download error)
-
-Here are the steps I took to download stuff again
-
-- ```sudo apt-get remove yt-dlp```
-
-- Clear other instances of yt-dlp from the system (/usr/local/bin/yt-dlp, etc.)
-
-- Linux/BSD button via 🔗[Github: yt-dlp/yt-dlp](https://github.com/yt-dlp/yt-dlp?tab=readme-ov-file#installation)
-
-- Copy the binary to $HOME/.local/bin
-
-- ```sudo chmod -x $HOME/.local/bin/yt-dlp```
-
-# LGM
-All my computer and Linux notes can be found at: 🔗[Linux Gremlin Mysteries](https://csmertx.github.io/). Which is hosted via: 🔗https://github.com/csmertx/csmertx.github.io
+# CSx
+All my computer and Linux notes can be found at: 🔗[CSx](https://csmertx.github.io/). Which is hosted via: 🔗https://github.com/csmertx/csmertx.github.io
 
 # Here Be Dragons
 
