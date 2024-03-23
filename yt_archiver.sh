@@ -23,8 +23,8 @@
 ### Might need work for other languages, and it might fail on fresh
 ### videos (YT takes a few minutes to auto generate subtitles 30-60min)
 
-## Allow the use of exclamations in Bash (Linux Mint/Debian)
-#set +H
+## Allow the use of exclamations in Bash used by Linux Mint or Debian(s)
+set +H
 
 ## The variables
 ytdurl="$1"
@@ -46,6 +46,13 @@ fi
 
 ## Subtitle Language choice
 subl="en"
+
+## Audio Language check (140-14 == English)
+if [[ "$(yt-dlp --list-formats "$1" | grep "140-14")" ]]; then
+    ytaf="140-14"
+else
+    ytaf="140"
+fi
 
 ## Display video title
 echo -e "\n\n==> Fetching: $ytfn\n\n"
@@ -71,7 +78,7 @@ if [[ $ysubl -gt 0 ]]; then
     ## Do the thing, and echo the notification.  Errors echo to stdout
     if [[ $vf -gt 1 ]]; then
         yt-dlp --write-thumbnail --add-metadata $ytdsub --convert-subs=srt --sub-lang $subl --cookies $cookiez -f $vf "$ytdurl" -o '%(title)s.%(ext)s'
-        yt-dlp -f 140 "$ytdurl" -o "$ytm4a"
+        yt-dlp -f $ytaf "$ytdurl" -o "$ytm4a"
         ffmpeg -i "${ytfn}.mp4" -i "$ytm4a" -c copy "${ytfn}_.mp4"
         rm -f "${ytfn}.mp4"
         rm -f "$ytm4a"
@@ -87,7 +94,6 @@ if [[ $ysubl -gt 0 ]]; then
         rm -f "$(cat $ytviddir/${ytdf} | grep vtt | tail -n1 | sed 's/^.*: //')"
         rm -f $ytviddir/${ytdf}
         if [[ -f "${ytfn}.mp4" ]]; then
-            # Use Notification Thumbnails
             notify-send -u normal -i "$ytviddir/${ytthumb}_150x84.png" "YT Download Complete" "$ytfn"
             sleep 1
             rm -f "${ytviddir}/${ytthumb}_150x84.png"
@@ -105,7 +111,7 @@ else
         ffmpeg -i "${ytfn}.mp4" -i "${ytfn}.png" -map 1 -map 0 -c copy -disposition:0 attached_pic "${ytfn}_.mp4"
         mv "${ytfn}_.mp4" "${ytfn}.mp4"
 #        if [[ $vf -eq 299 || $vf -eq 137 ]]; then
-            yt-dlp -f 140 "$ytdurl" -o "$ytm4a"
+            yt-dlp -f $ytaf "$ytdurl" -o "$ytm4a"
             ffmpeg -i "${ytfn}.mp4" -i "$ytm4a" -c copy "${ytfn}_.mp4"
             rm -f "${ytfn}.mp4"
             mv "${ytfn}_.mp4" "${ytfn}.mp4"
@@ -113,7 +119,6 @@ else
             mv "${ytfn}.png" "${ytfn}-poster.png"
 #        fi
         if [[ -f "${ytfn}.mp4" ]]; then
-            # Use Notification Thumbnails
             notify-send -u normal -i "$ytviddir/${ytthumb}_150x84.png" "YT Download Complete" "$ytfn"
             sleep 1
             rm -f "${ytviddir}/${ytthumb}_150x84.png"

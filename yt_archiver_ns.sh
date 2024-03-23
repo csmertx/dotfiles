@@ -21,9 +21,6 @@
 ### Might need work for other languages, and it might fail on fresh
 ### videos (YT takes a few minutes to auto generate subtitles 30-60min)
 
-## Allow the use of exclamations in Bash (Linux Mint/Debian)
-# set +H
-
 ## The variables
 ytdurl="$1"
 ytfn="$(yt-dlp $ytdurl -o "%(title)s" --get-filename)"
@@ -33,6 +30,13 @@ ytm4a="${RANDOM}.m4a"
 ytthumb="${RANDOM}"
 
 cd $ytviddir
+
+## Audio Language check (140-14 == English)
+if [[ "$(yt-dlp --list-formats "$1" | grep "140-14")" ]]; then
+    ytaf="140-14"
+else
+    ytaf="140"
+fi
 
 ## Display video title
 echo -e "\n\n==> Fetching: $ytfn\n\n"
@@ -48,14 +52,14 @@ if [[ $vf -gt 1 ]]; then
     yt-dlp --write-thumbnail --add-metadata --cookies $cookiez -f $vf "$ytdurl" -o '%(title)s.%(ext)s'
     convert "${ytfn}.webp" "${ytfn}.png"
     convert "${ytfn}.png" -resize 150x84^ -gravity center -extent 150x84 "${ytthumb}_150x84.png"
-    yt-dlp -f 140 "$ytdurl" -o "$ytm4a"
+    yt-dlp -f $ytaf "$ytdurl" -o "$ytm4a"
     ffmpeg -i "${ytfn}.mp4" -i "$ytm4a" -c copy "${ytfn}_.mp4"
     rm -f "${ytfn}.mp4"
     rm -f "$ytm4a"
     ffmpeg -i "${ytfn}_.mp4" -i "${ytfn}.png" -map 1 -map 0 -c copy -disposition:0 attached_pic "${ytfn}.mp4"
     if [[ -f "${ytfn}.mp4" ]]; then
-        # Use Notification Thumbnails
         notify-send -u normal -i "$ytviddir/${ytthumb}_150x84.png" "YT Download Complete" "$ytfn"
+        #notify-send -u normal -i video "$(echo -e "YT Download Complete:\n$ytfn")"
         sleep 1
         rm -f "${ytviddir}/${ytthumb}_150x84.png"
     else
