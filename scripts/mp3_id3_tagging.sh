@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Recently switched OS from Kubuntu to Linux Mint
+# And now have to debug this script (doesn't work)
+
 # Requires
 # ffmpeg
 # id3v2
@@ -12,7 +15,7 @@
 
 ## Album art types: JPG or PNG (copy to albumpath)
 ## Need to convert from webp?
-# KDE Plasme Users: https://csmertx.github.io/Linux/Software/dolphin/#custom-right-click-menu
+# KDE Plasma Users: https://csmertx.github.io/Linux/Software/dolphin/#custom-right-click-menu
 
 MP3DIR="$1"
 
