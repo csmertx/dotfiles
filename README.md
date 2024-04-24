@@ -1,9 +1,9 @@
-![dotfiles](home_lab_Dec_25_2023.jpg "Home Lab: December 25th, 2023")
+![dotfiles](PXL_20240424_040142269.NIGHT.jpg "Home Lab: April 24th, 2024")
 
-> It's like a rough life draft or something
+> Dracula. All of the things.
 
-# CSx
-All my computer and Linux notes can be found at: 🔗[CSx](https://csmertx.github.io/). Which is hosted via: 🔗https://github.com/csmertx/csmertx.github.io
+# CSmertX.com (hobbies)
+All my computer and Linux notes can be found at: 🔗[CSx](https://csmertx.com). Which is hosted via: 🔗https://github.com/csmertx/csmertx.github.io
 
 # Here Be Dragons
 
@@ -19,16 +19,28 @@ All my computer and Linux notes can be found at: 🔗[CSx](https://csmertx.githu
 
 - Referenced via 🔗[KDE / Press Kit / KDE Clipart](https://kde.org/stuff/clipart/ "KDE / Press Kit / KDE Clipart").
 
-## Resources
+## Cool stuff
+
 - 🔗[Bash Beginners Guide](https://tldp.org/LDP/Bash-Beginners-Guide/html/)
+
 - 🔗[Linux Command Line and Shell Scripting Bible, 3rd Edition](https://www.oreilly.com/library/view/linux-command-line/9781118983843/)
+
 - 🔗[Fedora Magazine | Bash Shell Scripting for beginners (Part 1)](https://fedoramagazine.org/bash-shell-scripting-for-beginners-part-1/)
+
 - 🔗[LearnLinuxTV | Introduction into Bash Scripting](https://www.youtube.com/watch?v=NWWvZa-qlRE&list=PLT98CRl2KxKG2RCPkG6EPOA-g1FmLfcZl)
+
 - 🔗[LearnLinuxTV | Arch Linux: Full Installation Guide - A complete tutorial/walkthrough in one video!](https://www.youtube.com/watch?v=DPLnBPM4DhI)
+
 - 🔗[Arch Linux Wiki](https://wiki.archlinux.org/)
+
 - 🔗[The Konsole Handbook](https://docs.kde.org/trunk5/en/konsole/konsole/konsole.pdf)
+
 - 🔗[ubuntu forums](https://ubuntuforums.org/)
+
 - 🔗[Debian Wiki](https://wiki.debian.org/)
+
 - 🔗[nixCraft](https://www.cyberciti.biz/)
+
 - 🔗[aristocratos/bpytop: Linux/OSX/FreeBSD resource monitor](https://github.com/aristocratos/bpytop)
+
 - 🔗[Vintage Linux](https://archive.org/search.php?query=linux&and%5B%5D=collection%3A%22vintagesoftware%22&page=1)
