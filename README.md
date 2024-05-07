@@ -44,3 +44,7 @@ All my computer and Linux notes can be found at: 🔗[CSx](https://csmertx.com).
 - 🔗[aristocratos/bpytop: Linux/OSX/FreeBSD resource monitor](https://github.com/aristocratos/bpytop)
 
 - 🔗[Vintage Linux](https://archive.org/search.php?query=linux&and%5B%5D=collection%3A%22vintagesoftware%22&page=1)
+
+## Bonus Music Video
+
+- 🔗[Makeup and Vanity Set - Algorithm (Endless Detiny) (DATA093)](https://www.youtube.com/watch?v=Hx3748DvS7k "YouTube | Makeup and Vanity Set - Algorithm (Endless Destiny) (DATA093)")
