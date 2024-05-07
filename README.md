@@ -47,4 +47,4 @@ All my computer and Linux notes can be found at: 🔗[CSx](https://csmertx.com).
 
 ## Bonus Music Video
 
-- 🔗[Makeup and Vanity Set - Algorithm (Endless Detiny) (DATA093)](https://www.youtube.com/watch?v=Hx3748DvS7k "YouTube | Makeup and Vanity Set - Algorithm (Endless Destiny) (DATA093)")
+- 🔗[Makeup and Vanity Set - Algorithm (Endless Destiny) (DATA093)](https://www.youtube.com/watch?v=Hx3748DvS7k "YouTube | Makeup and Vanity Set - Algorithm (Endless Destiny) (DATA093)")
