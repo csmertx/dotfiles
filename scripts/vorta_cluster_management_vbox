@@ -1,0 +1,28 @@
+#!/bin/bash
+
+cmd_1="$1"
+
+if [[ "$cmd_1" != "start" && "$cmd_1" != "stop" ]]; then
+    echo "Valid Vorta Commands: start/stop"
+    exit
+fi
+
+if [[ "$cmd_1" == "start" ]]; then
+    ### Start Cluster
+    ## weyoun@<centos_version><node_number>
+    VBoxManage startvm 'CentOS (RHEL 8 Sys Admin: Index)'
+    VBoxManage startvm 'CentOS (weyoun@c8n1)' --type headless
+    VBoxManage startvm 'CentOS (weyoun@c8n2)' --type headless
+    VBoxManage startvm 'CentOS (weyoun@c8n3)' --type headless
+    VBoxManage startvm 'CentOS (weyoun@c8n4)' --type headless
+fi
+
+if [[ "$cmd_1" == "stop" ]]; then
+    ### Poweroff Cluster
+    ## weyoun@<centos_version><node_number>
+    VBoxManage controlvm 'CentOS (RHEL 8 Sys Admin: Index)' poweroff
+    VBoxManage controlvm 'CentOS (weyoun@c8n1)' poweroff --type headless
+    VBoxManage controlvm 'CentOS (weyoun@c8n2)' poweroff --type headless
+    VBoxManage controlvm 'CentOS (weyoun@c8n3)' poweroff --type headless
+    VBoxManage controlvm 'CentOS (weyoun@c8n4)' poweroff --type headless
+fi

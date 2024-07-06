@@ -1,0 +1,36 @@
+#!/bin/bash
+
+cmd_1="$1"
+
+if [[ "$cmd_1" != "start" && "$cmd_1" != "stop" ]]; then
+    echo "Valid Vorta Commands: start/stop"
+    exit
+fi
+
+if [[ "$cmd_1" == "start" ]]; then
+    ### Start Cluster
+    sudo virsh start c8n0
+    sleep 180
+    sudo virsh start c8n1
+    sleep 180
+    sudo virsh start c8n2
+    sleep 180
+    sudo virsh start c8n3
+    sleep 180
+    sudo virsh start c8n4
+    sleep 2
+    sudo virt-viewer --domain-name c8n0 -f
+fi
+
+if [[ "$cmd_1" == "stop" ]]; then
+    ### Poweroff Cluster
+    sudo virsh shutdown c8n0
+    sleep 180
+    sudo virsh shutdown c8n1
+    sleep 180
+    sudo virsh shutdown c8n2
+    sleep 180
+    sudo virsh shutdown c8n3
+    sleep 180
+    sudo virsh shutdown c8n4
+fi
