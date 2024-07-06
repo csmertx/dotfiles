@@ -1,4 +1,4 @@
-![dotfiles](PXL_20240424_040142269.NIGHT.jpg "Home Lab: April 24th, 2024")
+![dotfiles](PXL_20240705_141815265.NIGHT.jpg "Home Lab: July 5th, 2024")
 
 > Dracula. All of the things.
 
