@@ -1,6 +1,6 @@
-![dotfiles](PXL_20240707_140657090.NIGHT.jpg "Home Lab: July 7th, 2024")
+![dotfiles](PXL_20240902_150655645.NIGHT_room_of_stuff.jpg "Home Lab (More or less): September 2nd, 2024")
 
-> Dracula. All of the things.
+> Dracula (color scheme). All of the things.
 
 # CSmertX.com (hobbies)
 All my computer and Linux notes can be found at: 🔗[CSx](https://csmertx.com). Which is hosted via: 🔗https://github.com/csmertx/csmertx.github.io
