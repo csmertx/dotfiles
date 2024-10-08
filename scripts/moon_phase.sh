@@ -42,24 +42,30 @@ TADMPS="$(cat "$TXTPARSE" | grep "%" | sed -n '1p' | sed 's/.*-//' | sed 's/with
 
 if [[ "$TADMPS" == "FirstQuarter" ]]; then
     MOONICON="🌓"
+    ILLUMICON="▼"
 elif [[ "$TADMPS" == "WaxingCrescent" ]]; then
     MOONICON="🌒"
+    ILLUMICON="▼"
 elif [[ "$TADMPS" == "NewMoon" ]]; then
     MOONICON="🌑"
 elif [[ "$TADMPS" == "WaningCrescent" ]]; then
     MOONICON="🌘"
+    ILLUMICON="▲"
 elif [[ "$TADMPS" == "LastQuarter" ]]; then
     MOONICON="🌗"
+    ILLUMICON="▲"
 elif [[ "$TADMPS" == "WaningGibbous" ]]; then
     MOONICON="🌖"
+    ILLUMICON="▲"
 elif [[ "$TADMPS" == "FullMoon" ]]; then
     MOONICON="🌕"
 elif [[ "$TADMPS" == "WaxingGibbous" ]]; then
     MOONICON="🌔"
+    ILLUMICON="▼"
 else
     echo -en "No Data (?)"
 fi
 
 # Print to temp file
-echo -en "Moon: $TADMPI $MOONICON" > "$MOON_PHASE_PARSED"
+echo -en "Moon: $ILLUMICON $TADMPI $MOONICON" > "$MOON_PHASE_PARSED"
 exit 0
