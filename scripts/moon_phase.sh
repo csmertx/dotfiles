@@ -42,26 +42,26 @@ TADMPS="$(cat "$TXTPARSE" | grep "%" | sed -n '1p' | sed 's/.*-//' | sed 's/with
 
 if [[ "$TADMPS" == "FirstQuarter" ]]; then
     MOONICON="🌓"
-    ILLUMICON="▼"
+    ILLUMICON="▲"
 elif [[ "$TADMPS" == "WaxingCrescent" ]]; then
     MOONICON="🌒"
-    ILLUMICON="▼"
+    ILLUMICON="▲"
 elif [[ "$TADMPS" == "NewMoon" ]]; then
     MOONICON="🌑"
 elif [[ "$TADMPS" == "WaningCrescent" ]]; then
     MOONICON="🌘"
-    ILLUMICON="▲"
+    ILLUMICON="▼"
 elif [[ "$TADMPS" == "LastQuarter" ]]; then
     MOONICON="🌗"
-    ILLUMICON="▲"
+    ILLUMICON=""
 elif [[ "$TADMPS" == "WaningGibbous" ]]; then
     MOONICON="🌖"
-    ILLUMICON="▲"
+    ILLUMICON="▼"
 elif [[ "$TADMPS" == "FullMoon" ]]; then
     MOONICON="🌕"
 elif [[ "$TADMPS" == "WaxingGibbous" ]]; then
     MOONICON="🌔"
-    ILLUMICON="▼"
+    ILLUMICON="▲"
 else
     echo -en "No Data (?)"
 fi
