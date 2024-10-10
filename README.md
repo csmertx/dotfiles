@@ -3,13 +3,13 @@
 > Dracula (color scheme). All of the things.
 
 # CSmertX.com (hobbies)
-All my computer and Linux notes can be found at: 🔗[CSx](https://csmertx.com). Which is hosted via: 🔗https://github.com/csmertx/csmertx.github.io
+All my computer and Linux notes can be found at: 🔗[CSx](https://csmertx.com). Which is hosted here: 🔗https://github.com/csmertx/csmertx.github.io
 
 # Here Be Dragons
 
 - For scripts: variables may need adjustment.
 
-- The Imgur album below is from 2017-2018 via a Windows XP era computer--2006 model purchased in 2014 for $300 with 4GB of RAM--same PC I used to fund most of the stuff in the 🔗[January 2023 photo](desktop_jan_2023.jpg)
+- The Imgur album below is from 2017-2018 with a Windows XP era computer--2006 model purchased in 2014 for $300 with 4GB of RAM--same PC I used to fund most of the stuff in the 🔗[January 2023 photo](desktop_jan_2023.jpg)
 
     - 🔗[Imgur album | 20+ screenshots](https://imgur.com/a/VXpYHBM)
 
@@ -17,7 +17,7 @@ All my computer and Linux notes can be found at: 🔗[CSx](https://csmertx.com).
 
 - Logo of the 🔗[KDE Community](https://kde.org/ "KDE Community")
 
-- Referenced via 🔗[KDE / Press Kit / KDE Clipart](https://kde.org/stuff/clipart/ "KDE / Press Kit / KDE Clipart").
+- Referenced here: 🔗[KDE / Press Kit / KDE Clipart](https://kde.org/stuff/clipart/ "KDE / Press Kit / KDE Clipart").
 
 ## Cool stuff
 
