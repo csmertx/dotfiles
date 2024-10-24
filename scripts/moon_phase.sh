@@ -8,6 +8,7 @@
 # Add to Tmux theme via: #(cat '/dev/shm/moon_phase_parsed.txt')
 # Or however you add scripts to Tmux
 
+## Download moongiant.com/phase/today/ to save on website requests
 TADMP="https://www.moongiant.com/phase/today/"
 TXTPARSE="/dev/shm/timeanddate.html"
 MOON_PHASE_PARSED="/dev/shm/moon_phase_parsed.txt"
@@ -18,14 +19,8 @@ wget -cO - "$TADMP" > "$TXTPARSE"
 ## Moon Phase illumination percentage
 TADMPI="$(cat "$TXTPARSE" | grep "%" | sed -n '1p' | sed 's/.*-//' | sed 's/".*//g' | awk '{print $4}' | sed 's/ //g')"
 
-## TADMPI test
-#echo -en "\nIllumination Percentage is: $TADMPI\n"
-
 ## Moon Phase Status
 TADMPS="$(cat "$TXTPARSE" | grep "%" | sed -n '1p' | sed 's/.*-//' | sed 's/with.*//g' | sed 's/ //g')"
-
-## TADMPS test
-#echo -en "\nMoon Phase Status is: $TADMPS\n"
 
 ## Change Moon icon based on status/visual
 
@@ -39,6 +34,7 @@ TADMPS="$(cat "$TXTPARSE" | grep "%" | sed -n '1p' | sed 's/.*-//' | sed 's/with
 #Waxing Gibbous:  🌔
 
 # Swap Moon Emoji
+## Illumicon for New Moon awareness
 
 if [[ "$TADMPS" == "FirstQuarter" ]]; then
     MOONICON="🌓"
@@ -53,7 +49,7 @@ elif [[ "$TADMPS" == "WaningCrescent" ]]; then
     ILLUMICON="▼"
 elif [[ "$TADMPS" == "LastQuarter" ]]; then
     MOONICON="🌗"
-    ILLUMICON=""
+    ILLUMICON="▼"
 elif [[ "$TADMPS" == "WaningGibbous" ]]; then
     MOONICON="🌖"
     ILLUMICON="▼"
@@ -66,6 +62,6 @@ else
     echo -en "No Data (?)"
 fi
 
-# Print to temp file
+# Print to temp RAM file
 echo -en "Moon: $ILLUMICON $TADMPI $MOONICON" > "$MOON_PHASE_PARSED"
 exit 0
