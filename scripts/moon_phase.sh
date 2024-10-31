@@ -44,6 +44,7 @@ elif [[ "$TADMPS" == "WaxingCrescent" ]]; then
     ILLUMICON="▲"
 elif [[ "$TADMPS" == "NewMoon" ]]; then
     MOONICON="🌑"
+    ILLUMICON="🔦"
 elif [[ "$TADMPS" == "WaningCrescent" ]]; then
     MOONICON="🌘"
     ILLUMICON="▼"
@@ -55,6 +56,7 @@ elif [[ "$TADMPS" == "WaningGibbous" ]]; then
     ILLUMICON="▼"
 elif [[ "$TADMPS" == "FullMoon" ]]; then
     MOONICON="🌕"
+    ILLUMICON="🐺"
 elif [[ "$TADMPS" == "WaxingGibbous" ]]; then
     MOONICON="🌔"
     ILLUMICON="▲"
