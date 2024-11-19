@@ -1,0 +1,18 @@
+[Desktop Entry]
+Categories=Office
+Comment[en_US]=FreeCad
+Comment=FreeCad
+Exec=/mnt/Storage/User/.sources/appimages/FreeCAD_1.0.0-conda-Linux-x86_64-py311.AppImage
+GenericName[en_US]=FreeCad
+GenericName=FreeCad
+Icon=/mnt/Storage/Pictures/Icons/logo-freecad_512x512.svg
+MimeType=
+Name[en_US]=FreeCad
+Name=FreeCad
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=
