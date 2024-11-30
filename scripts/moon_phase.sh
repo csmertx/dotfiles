@@ -61,7 +61,9 @@ elif [[ "$TADMPS" == "WaxingGibbous" ]]; then
     MOONICON="🌔"
     ILLUMICON="▲"
 else
-    echo -en "No Data (?)"
+    MOONICON="🌑"
+    ILLUMICON="🔦"
+    TADMPI="0%"
 fi
 
 # Print to temp RAM file
