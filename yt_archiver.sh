@@ -7,7 +7,7 @@
 ### ffmpeg (merges thumbnail, subtitles, and m4a audio to final video file--up to 1080p 60fps)
 ### Jellyfin for local network streaming
 
-#### May fail with certain subtitles (CNN, etc.)
+#### May fail with THROTTLED streams, and certain subtitles (CNN, etc.)
 
 ## This script downloads specified YouTube video, and applies creator thumbnail,
 ## and auto generated or creator made subtitles to metadata
@@ -49,12 +49,12 @@ fi
 subl="en"
 
 ## Audio Language check (140 ... = English)
-if [[ "$(yt-dlp --list-formats "$1" | grep "140")" ]]; then
-    ytaf="140"
+if [[ "$(yt-dlp --list-formats "$1" | grep "140-14")" ]]; then
+    ytaf="140-14"
 elif [[ "$(yt-dlp --list-formats "$1" | grep "140-drc")" ]]; then
     ytaf="140-drc"
 else
-    ytaf="140-14"
+    ytaf="140"
 fi
 
 ## Display video title
