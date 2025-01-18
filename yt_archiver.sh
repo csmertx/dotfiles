@@ -30,6 +30,7 @@ set +H
 ytdurl="$1"
 ytfn="$(yt-dlp $ytdurl -o "%(title)s" --get-filename)"
 ytviddir="$HOME/Videos/YouTube"
+#ytviddir="$HOME/Videos/FreeCad"
 cookiez="$HOME/cookies.txt"
 ytm4a="${RANDOM}.m4a"
 ytdf="${RANDOM}.txt"
@@ -50,6 +51,8 @@ subl="en"
 ## Audio Language check (140-14 == English)
 if [[ "$(yt-dlp --list-formats "$1" | grep "140-14")" ]]; then
     ytaf="140-14"
+elif [[ "$(yt-dlp --list-formats "$1" | grep "140-drc")" ]]; then
+    ytaf="140-drc"
 else
     ytaf="140"
 fi
