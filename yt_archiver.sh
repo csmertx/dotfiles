@@ -48,13 +48,13 @@ fi
 ## Subtitle Language choice
 subl="en"
 
-## Audio Language check (140-14 == English)
-if [[ "$(yt-dlp --list-formats "$1" | grep "140-14")" ]]; then
-    ytaf="140-14"
+## Audio Language check (140 ... = English)
+if [[ "$(yt-dlp --list-formats "$1" | grep "140")" ]]; then
+    ytaf="140"
 elif [[ "$(yt-dlp --list-formats "$1" | grep "140-drc")" ]]; then
     ytaf="140-drc"
 else
-    ytaf="140"
+    ytaf="140-14"
 fi
 
 ## Display video title
