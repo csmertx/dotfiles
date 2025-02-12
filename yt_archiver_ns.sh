@@ -31,9 +31,9 @@ ytthumb="${RANDOM}"
 
 cd $ytviddir
 
-## Audio Language check (140 ... = English)
-if [[ "$(yt-dlp --list-formats "$1" | grep "140-2")" ]]; then
-    ytaf="140-2"
+## Audio Language check (140,140-0,140-14,140-drc= English)
+if [[ "$(yt-dlp --list-formats "$1" | grep "140-0")" ]]; then
+    ytaf="140-0"
 elif [[ "$(yt-dlp --list-formats "$1" | grep "140-14")" ]]; then
     ytaf="140-14"
 elif [[ "$(yt-dlp --list-formats "$1" | grep "140-drc")" ]]; then
