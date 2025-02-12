@@ -36,6 +36,8 @@ Arch Linux:
 2. ```./Ghemx```
 
 
+Optional: Install KDE Connect for wearable and or mobile notifications
+
 ## GhemxDS
 
 Bash script (CLI) egg timer 🔗 [ghemx](https://github.com/csmertx/ghemx "Github.com \ csmertx \ ghemx") I wrote several years ago.
