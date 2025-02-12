@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>ghemx_tray_dark.png</file>
+        <file>ghemx_tray_light.png</file>
+    </qresource>
+</RCC>
