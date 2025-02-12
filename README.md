@@ -1,6 +1,6 @@
 # GhemxDS
 
-A simple Qt-based timer application with system tray integration and desktop notifications.
+A simple Qt-based timer app with system tray integration and desktop notifications.
 
 ## Features
 - Start, stop, and reset the timer.
