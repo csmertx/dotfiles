@@ -1,30 +1,30 @@
 #!/bin/bash
 
-# Automate with Crontab, Systemd, etc.
-
-# ex: crontab -e
-# 0 */1 * * * /home/user/.scripts/moon_phase.sh
-# Add to Tmux theme via: #(cat '/dev/shm/moon_phase_parsed.txt')
-# Or however you add scripts to Tmux
-
 wotd="/dev/shm/wordoftheday.txt"
-wotdu="/dev/shm/wordoftheday.url"
-
-# Loader text
+wotdu="/dev/shm/wotd.url"
+#rm $wotd 2>/dev/null
 echo "WOTD: Loading..." > $wotd
-wget -q -O- https://www.merriam-webster.com/word-of-the-day > $wotdu
+wget -q -O- https://www.merriam-webster.com/wotd/feed/rss2 > $wotdu
 
-# Parse out WOTD
-wordoftheday="$(cat $wotdu \
-| perl -lne 'print $1 if /<title>(.*)/' \
-| grep "Word" \
-| sed "s/.*: //g" \
-| sed "s/ |.*//g")"
+#wordoftheday="$(cat $wotdu \
+#| grep og:title \
+#| sed 's/ //g' \
+#| perl -lne 'print $1 if /Day(.*)/' \
+#| sed 's/[:]//g;s/[\"\/>]//g' \
+#| tr '[:upper:]' '[:lower:]')"
 
-# Print to file
+wordoftheday="$(cat $wotdu | perl -lne 'print $1 if /strong(.*)/' | awk 'NR==3' | awk '{print $1}' | sed 's/>//g' | sed 's/<\/strong//g')"
+
+#wordoftheday="$(cat $wotdu \
+#| perl -lne 'print $1 if /<title>(.*)/' \
+#| grep "Word" \
+#| sed "s/.*: //g" \
+#| sed "s/ |.*//g")"
+
 echo "WOTD: Loading..." > $wotd
 sleep 2
 echo "WOTD: $wordoftheday" > $wotd
-if [[ ! "$(cat $wotd | awk '{print $2}')" ]]; then
+if [[ ! "$(cat $wotd | awk '{print $1}')" ]]; then
         echo "WOTD: ..404.." > $wotd
 fi
+#echo " Word of the Day | $wordoftheday" > $wotd
