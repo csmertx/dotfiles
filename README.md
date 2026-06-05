@@ -1,6 +1,6 @@
 ![dotfiles](PXL_20260605_195611648_605x340.jpg "Home Lab/Office: June 05, 2026")
 
-> Dracula (color scheme). All of the things.
+> My crusty self
 
 # CSmertX.com (hobbies)
 All my computer and Linux notes can be found at: 🔗[CSx](https://csmertx.com). Which is hosted here: 🔗https://github.com/csmertx/csmertx.github.io
