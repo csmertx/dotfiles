@@ -1,6 +1,6 @@
-![dotfiles](PXL_20260605_195611648_605x340.jpg "Home Lab/Office: June 05, 2026")
+![dotfiles](PXL_20260605_200435932_1008x567.jpg "Workstation Station: June 05, 2026")
 
-> My crusty self
+> Workstation Station
 
 # CSmertX.com (hobbies)
 All my computer and Linux notes can be found at: 🔗[CSx](https://csmertx.com). Which is hosted here: 🔗https://github.com/csmertx/csmertx.github.io
