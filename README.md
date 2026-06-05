@@ -1,4 +1,4 @@
-![dotfiles](home_lab_jan_2025.jpg "Home Lab/Office: January 20, 2025")
+![dotfiles](PXL_20260605_195611648_605x340.jpg "Home Lab/Office: June 05, 2026")
 
 > Dracula (color scheme). All of the things.
 
