@@ -1,6 +1,6 @@
 # ~/.tmuxinator/daily.yml
 
-name: daily
+name: tmux
 root: ~/
 
 # Optional tmux socket
@@ -43,16 +43,38 @@ root: ~/
 # post: tmux -CC attach -t daily
 
 windows:
-  - editor:
+  - td:
       # layout: 5e00,317x73,0,0[318x37,0,0{158x37,0,0,0,159x37,159,0,3},318x36,0,38{158x36,0,38,4,159x36,159,38,5}]]
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
         - calcurse
-        - mocp
-        -
-        -
-  - logs: vim /home/chris/.admin_log.txt
+        #- mutt
+        #- sleep 20 && clear && mocp
+        #- sleep 20 && /home/chris/.scripts/mpd_launcher
+  #- logs: vim "+normal G" /home/chris/.admin_log.txt
+  - lg: sleep 5;pause;vim '+normal G' /home/chris/User/Logs/.admin_log.txt
+  #- bk: sleep 5;pause;vim '+normal G' /home/chris/.bookmarks_backup.html
+  - sw: 
+    #  - cl: sleep 5;pause;/home/chris/.scripts/calorie_day_log
+#  - irc: weechat
+#  - bug:
+#      layout: 85ff,318x74,0,0{159x74,0,0,11,158x74,160,0[158x36,160,0,10,158x37,160,37,6]}
+#      panes:
+  # - rd: sleep 5;pause;ranger /home/chris/Documents/Notes/
+  #  - wk: sleep 5;pause;uolo
+  #  - ^1:
+  #     panes:
+  #       - pause;dotgit;clear
+  #       - ranger "/home/chris/.sources/dotfiles"
+         #  - ^2:
+         #     panes:
+         #       - pause;lgmgit;clear
+         #       - ranger "/home/chris/.sources/csmertx.github.io"
+         #  - ^3:
+    #panes:
+    #  -
+    #  - ranger
 #  - server: bundle exec rails s
 #  - logs: tail -f log/development.log
