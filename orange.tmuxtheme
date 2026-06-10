@@ -25,8 +25,9 @@ set -g status-left "#[fg=colour233,bg=colour130,bold] #S #[fg=colour130,bg=colou
 set -g status-right-style bg=colour233,fg=colour243
 set -g status-right-length 150
 #set -g status-right "#[fg=colour235,bg=colour233]#[fg=colour240,bg=colour235] #(cat "/dev/shm/weather_status.txt") #(cat /dev/shm/wordoftheday.txt) #[fg=colour240,bg=colour235]#[fg=colour233,bg=colour240] %a %d-%b-%y #[fg=colour130,bg=colour240]#[fg=colour233,bg=colour130,bold] #H "
-set -g status-right "#[fg=colour235,bg=colour233]#[fg=colour240,bg=colour235] #(cat '/dev/shm/moon_phase_parsed.txt') #(cat /dev/shm/wordoftheday.txt) #[fg=colour240,bg=colour235]#[fg=colour233,bg=colour240] %a %d-%b-%y #[fg=colour130,bg=colour240]#[fg=colour233,bg=colour130,bold] #H "
+#set -g status-right "#[fg=colour235,bg=colour233]#[fg=colour240,bg=colour235] #(cat '/dev/shm/moon_phase_parsed.txt') #[fg=colour240,bg=colour235]#[fg=colour233,bg=colour240] %a %d-%b-%y #[fg=colour130,bg=colour240]#[fg=colour233,bg=colour130,bold] #H "
 
+set -g status-right "#[fg=colour235,bg=colour233]#[fg=colour240,bg=colour235] #(cat '/dev/shm/moon_phase_parsed.txt') #(cat /dev/shm/wordoftheday.txt) #[fg=colour240,bg=colour235]#[fg=colour233,bg=colour240] %a %d-%b-%y #[fg=colour130,bg=colour240]#[fg=colour233,bg=colour130,bold] #H "
 # Window status
 set -g window-status-format "  #I:#W#F  "
 set -g window-status-current-format "#[fg=colour233,bg=black]#[fg=colour166,nobold] #I:#W#F #[fg=colour233,bg=black,nobold]"
