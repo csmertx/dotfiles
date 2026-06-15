@@ -9,6 +9,7 @@
 # Or however you add scripts to Tmux
 
 # Icons are hit or miss with WSL/TMUX. Worked 100% all the time with Linux/GNU/TMUX though
+# Gets the job done anyway. New moon is when people are actually more crazy ;)
 
 ## Download moongiant.com/phase/today/ to save on website requests
 TADMP="https://www.moongiant.com/phase/today/"
