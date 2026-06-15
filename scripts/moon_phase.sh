@@ -8,6 +8,8 @@
 # Add to Tmux theme via: #(cat '/dev/shm/moon_phase_parsed.txt')
 # Or however you add scripts to Tmux
 
+# Icons are hit or miss with WSL/TMUX. Worked 100% all the time with Linux/GNU/TMUX though
+
 ## Download moongiant.com/phase/today/ to save on website requests
 TADMP="https://www.moongiant.com/phase/today/"
 TXTPARSE="/dev/shm/timeanddate.html"
