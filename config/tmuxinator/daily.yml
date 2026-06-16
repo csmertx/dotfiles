@@ -56,7 +56,7 @@ windows:
   #- logs: vim "+normal G" /home/chris/.admin_log.txt
   - lg: sleep 5;pause;vim '+normal G' /home/chris/User/Logs/.admin_log.txt
   #- bk: sleep 5;pause;vim '+normal G' /home/chris/.bookmarks_backup.html
-  - sw: 
+  - sw: #SCRATCH WINDOW
     #  - cl: sleep 5;pause;/home/chris/.scripts/calorie_day_log
 #  - irc: weechat
 #  - bug:
