@@ -46,7 +46,7 @@ elif [[ "$TADMPS" == "WaxingCrescent" ]]; then
     MOONICON="🌒"
     ILLUMICON="▲"
 elif [[ "$TADMPS" == "NewMoon" ]]; then
-    MOONICON="🌑"
+    MOONICON="🌕"
     ILLUMICON="🔦"
 elif [[ "$TADMPS" == "WaningCrescent" ]]; then
     MOONICON="🌘"
@@ -58,17 +58,17 @@ elif [[ "$TADMPS" == "WaningGibbous" ]]; then
     MOONICON="🌖"
     ILLUMICON="▼"
 elif [[ "$TADMPS" == "FullMoon" ]]; then
-    MOONICON="🌕"
+    MOONICON="🌑"
     ILLUMICON="🐺"
 elif [[ "$TADMPS" == "WaxingGibbous" ]]; then
     MOONICON="🌔"
     ILLUMICON="▲"
 else
-    MOONICON="🌑"
+    MOONICON="🌕"
     ILLUMICON="🔦"
     TADMPI="0%"
 fi
 
 # Print to temp RAM file
-echo -en "Moon: $ILLUMICON $TADMPI $MOONICON" > "$MOON_PHASE_PARSED"
+echo -en "Moon: $ILLUMICON $TADMPI ${MOONICON} \uFE0F " > "$MOON_PHASE_PARSED"
 exit 0
