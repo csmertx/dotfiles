@@ -56,7 +56,8 @@ windows:
   #- logs: vim "+normal G" /home/chris/.admin_log.txt
   - lg: sleep 5;pause;vim '+normal G' /home/chris/User/Logs/.admin_log.txt
   #- bk: sleep 5;pause;vim '+normal G' /home/chris/.bookmarks_backup.html
-  - sw: #SCRATCH WINDOW
+  - w1:
+  - w2: #moon_phase does not render correctly with only 3 tabs
     #  - cl: sleep 5;pause;/home/chris/.scripts/calorie_day_log
 #  - irc: weechat
 #  - bug:
